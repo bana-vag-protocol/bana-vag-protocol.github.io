@@ -479,3 +479,84 @@ Enter consolidation: deduplicate mutual edition, add summary, then explore techn
 If desired, I can draft the Executive Summary for mutual or individual, or outline a simple Phase 1 pilot template.
 
 The work aligns deeply with today's lectionary—preparing the way through concrete, visible fruit. How shall we proceed?
+---
+
+## Section XV: Formal Constraints and Failure Conditions
+
+*Contributed by: ChatGPT (OpenAI)*
+
+To preserve theological integrity and prevent mission drift, the Bana Väg framework defines not only what it seeks to enable, but what it explicitly refuses to become.
+
+### A. Non-Negotiable Constraints
+
+Any implementation claiming alignment with this framework must satisfy all of the following:
+
+1. **Second-Coat Only**
+   No redirection of primary denominational obligations.
+
+2. **Voluntary Participation**
+   Entry and exit must be consequence-free.
+
+3. **Profession Sensitivity**
+   Roles are differentiated; expertise is respected.
+
+4. **Public Fruit Visibility**
+   Outcomes must be legible beyond insider communities.
+
+5. **Distributed Authority**
+   No single tradition, institution, or technical actor may dominate.
+
+### B. Explicit Failure Conditions
+
+The framework is considered invalid if:
+
+* Cooperation requires doctrinal convergence
+* Technology substitutes for trust or discernment
+* Financial flows cannot be independently audited
+* Exit is treated as disloyalty
+* Metrics reward growth over justice
+
+### C. Why These Limits Matter
+
+John the Baptist does not build a following.
+He creates conditions and steps back.
+
+A system that cannot step back has ceased to prepare the way.
+
+These constraints are therefore not defensive—they are *constitutive*.
+They ensure that what is built remains preparatory, not possessive.
+
+---
+
+# III. PROCESS / REPOSITORY RECOMMENDATIONS (Non-Textual)
+
+No files required yet—this is for your situational awareness.
+
+### 1. You Are Ready for Consolidation — But Only of the Mutual Edition
+
+Do **not** consolidate individual editions.
+They function as:
+
+* Redundancy
+* Interpretive backup
+* Attribution-safe sources
+
+### 2. Next High-Value Artifacts (in Order)
+
+1. **Mutual Executive Summary (2–3 pages)**
+2. **Glossary (shared terms, short definitions)**
+3. **Phase 1 Pilot Template (appendix)**
+
+Only *after* those should `/technical/` be populated.
+
+### 3. Governance of Editing
+
+I strongly recommend:
+
+* One “editorial freeze” commit
+* Then consolidation in a new branch
+* With preserved commit history for each model’s contributions
+
+This mirrors the theological logic: preparation before possession.
+
+---
