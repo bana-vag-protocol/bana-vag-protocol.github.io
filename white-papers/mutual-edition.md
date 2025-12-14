@@ -205,3 +205,60 @@ Build on Swedish interfaith dialog (e.g., programs emphasizing peace and integra
 This mutual framework calls communities to test the Johannine logic: let greater fruit speak for itself.
 
 ---
+---
+
+## Section IX: Theological Boundary Conditions
+
+*Contributed by: ChatGPT (OpenAI)*
+
+Interfaith cooperation requires not only shared goals but **clearly articulated limits**. Without boundary conditions, cooperation risks either coercion (forcing unity) or dilution (erasing difference). The Johannine–Advent framework provides explicit constraints.
+
+### A. What This Framework Does *Not* Do
+
+This model does **not**:
+
+* Create a shared theology
+* Require mutual recognition of doctrine
+* Replace or redirect primary religious obligations
+* Establish a permanent interfaith institution
+* Claim salvific authority
+
+These exclusions are not pragmatic concessions; they are **theological necessities** derived from John the Baptist’s role as preparer rather than possessor.
+
+### B. What This Framework Explicitly Permits
+
+This model **does** permit:
+
+* Cooperation on surplus capacity (“second coat”)
+* Shared protection against exploitation
+* Transparent measurement of outcomes
+* Voluntary, reversible participation
+* Public intelligibility of ethical standards
+
+These permissions correspond directly to Luke 3’s emphasis on fruit rather than identity.
+
+### C. Advent as a Time-Bound Orientation
+
+Advent is a season, not a state.
+
+Accordingly, any interfaith structure built on this framework should:
+
+* Remain provisional
+* Be periodically reassessed
+* Be dissolvable without loss of integrity
+* Resist institutional self-preservation
+
+Structures that cannot end gracefully are no longer preparatory.
+
+### D. Why Boundaries Increase Trust
+
+Clear limits:
+
+* Protect denominational loyalty
+* Reduce fear of mission drift
+* Enable honest participation
+* Allow fruit to speak without manipulation
+
+In Johannine logic, **constraint is not failure** — it is faithfulness.
+
+---
