@@ -8,7 +8,7 @@ This paper presents a scripturally grounded vision for interfaith charitable coo
 #### I. Liturgical and Scriptural Foundation  
 The theme "Bana väg för Herren" (Prepare the way for the Lord) draws from Isaiah 40:1-8, with John's voice crying in the wilderness to level mountains and fill valleys. Common across all lectionary years is Psalm 146:3-9, emphasizing God's care for the oppressed, hungry, prisoners, and strangers—categories echoed in Jewish, Christian, and Muslim obligations to the vulnerable. Luke 3:10-14 provides concrete, publicly intelligible ethics accessible to all.
 
-[Image: https://www.psephizo.com/wp-content/uploads/2021/12/image-1.jpeg][Image: https://michelemorin.net/wp-content/uploads/2020/12/isaiah-40_4.jpg?w=640 ]
+[Image: https://www.psephizo.com/wp-content/uploads/2021/12/image-1.jpeg ][Image: https://michelemorin.net/wp-content/uploads/2020/12/isaiah-40_4.jpg?w=640 ]
 
 
 
