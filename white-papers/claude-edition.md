@@ -594,3 +594,41 @@ If it does not, let this framework be cut down and discarded.
 That is the Johannine standard.
 And that is exactly as it should be.
 
+### XV. Transition Point: From Document to Demonstration
+
+This white paper concludes at a theologically appropriate moment: the completion of preparation.
+
+**What has been established:**
+- Scriptural warrant for the Johannine-Advent framework
+- Economic logic of the Second Coat principle
+- Governance structure ensuring distributed authority
+- Measurement framework for visible fruit
+- Clear boundaries and failure conditions
+- Implementation readiness criteria
+
+**What remains:**
+- The decisive test of fruit
+
+John the Baptist's ax lies at the root (Luke 3:9). This framework—like every tree—will be judged by whether it bears fruit worthy of repentance.
+
+**The appropriate next move:**
+
+Not additional theological elaboration, but **condensation for action**. The Executive Summary becomes the test: can this framework be communicated clearly enough for leaders to make informed decisions?
+
+If the summary works, implementation can begin.
+If it doesn't, no amount of additional architecture will help.
+
+**Final observation:**
+
+We have prepared a way. Whether it is *the* way will be determined not by its authors but by whether:
+- Hungry people are fed more effectively
+- Exploited people are freed from debt
+- Strangers are welcomed with greater dignity
+- Resources reach vulnerable people more efficiently
+
+That is the Johannine standard.
+
+The white paper phase is complete.
+
+Let the fruit speak.
+
