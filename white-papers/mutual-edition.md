@@ -184,7 +184,7 @@ Interfaith cooperation requires governance that embodies Psalm 146's distrust of
 
 This governance constrains power while enabling the "all flesh" of Isaiah 40:5 to witness salvation through justice.
 
-
+[Image: https://www.eurasiareview.com/wp-content/uploads/2025/09/a-33-800x445.jpg ][Image: https://media.islamicity.org/wp-content/uploads/2024/10/interfaith.jpg ] 
 
 
 
