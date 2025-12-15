@@ -1,505 +1,175 @@
-import React, { useState, useEffect } from 'react';
-import { Gift, Package, Calendar, Users, Check, X, Plus, AlertCircle } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bana Väg – Seasonal Needs Coordinator</title>
+  <style>
+    :root { --primary: #7c3aed; --success: #10b981; --bg: #faf5ff; }
+    body { font-family: system-ui, sans-serif; background: var(--bg); margin: 0; padding: 0; color: #1e293b; }
+    .container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+    header { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; margin-bottom: 2rem; }
+    h1 { font-size: 2.5rem; color: #581c87; margin: 0 0 0.5rem; }
+    .card { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 1.5rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
+    .need { border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; background: #f8f5ff; }
+    .reserved { background: #fefce8; }
+    .fulfilled { background: #f0fdf4; opacity: 0.8; }
+    input, textarea, select { width: 100%; padding: 0.75rem; margin: 0.5rem 0; border: 1px solid #cbd5e1; border-radius: 8px; }
+    button { padding: 0.75rem 1.5rem; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; }
+    button:hover { background: #6d28d9; }
+    .btn-small { padding: 0.5rem 1rem; font-size: 0.9rem; }
+    .btn-green { background: var(--success); }
+    .btn-green:hover { background: #059669; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Seasonal Community Coordination</h1>
+      <p>Christmas gifts, winter clothing, Ramadan support — coordinate without duplication</p>
+    </header>
 
-export default function SeasonalCoordinator() {
-  const [campaigns, setCampaigns] = useState([]);
-  const [view, setView] = useState('list');
-  const [selectedCampaign, setSelectedCampaign] = useState(null);
+    <div class="card">
+      <h2>Create New Campaign</h2>
+      <input id="campaign-name" placeholder="Campaign name (e.g. Christmas 2025 Gift Drive)">
+      <input type="date" id="campaign-deadline">
+      <input id="campaign-location" placeholder="Drop-off location">
+      <textarea id="campaign-desc" rows="2" placeholder="Description (optional)"></textarea>
+      <button onclick="createCampaign()">Create Campaign</button>
+    </div>
 
-  useEffect(() => {
-    const stored = localStorage.getItem('banaVagCampaigns');
-    if (stored) setCampaigns(JSON.parse(stored));
-  }, []);
+    <h2>Active Campaigns</h2>
+    <div id="campaigns"></div>
+  </div>
 
-  const saveCampaigns = (updated) => {
-    setCampaigns(updated);
-    localStorage.setItem('banaVagCampaigns', JSON.stringify(updated));
-  };
-
-  const addCampaign = (campaign) => {
-    saveCampaigns([...campaigns, { 
-      ...campaign, 
-      id: Date.now(), 
-      created: new Date().toISOString(),
-      needs: [],
-      contributions: []
-    }]);
-  };
-
-  const addNeed = (campaignId, need) => {
-    const updated = campaigns.map(c => 
-      c.id === campaignId 
-        ? { ...c, needs: [...c.needs, { ...need, id: Date.now(), reserved: [], fulfilled: [] }] }
-        : c
-    );
-    saveCampaigns(updated);
-  };
-
-  const reserveItem = (campaignId, needId, contributor) => {
-    const updated = campaigns.map(c => {
-      if (c.id !== campaignId) return c;
-      return {
-        ...c,
-        needs: c.needs.map(n => 
-          n.id === needId
-            ? { ...n, reserved: [...n.reserved, { contributor, date: new Date().toISOString() }] }
-            : n
-        )
+  <script>
+    function createCampaign() {
+      const name = document.getElementById('campaign-name').value.trim();
+      const deadline = document.getElementById('campaign-deadline').value;
+      const location = document.getElementById('campaign-location').value.trim();
+      if (!name || !deadline) return alert("Name and deadline required");
+      const campaign = {
+        id: Date.now(),
+        name,
+        deadline,
+        location,
+        desc: document.getElementById('campaign-desc').value.trim(),
+        needs: [],
+        created: new Date().toISOString()
       };
-    });
-    saveCampaigns(updated);
-  };
-
-  const fulfillItem = (campaignId, needId, reservationIndex) => {
-    const updated = campaigns.map(c => {
-      if (c.id !== campaignId) return c;
-      return {
-        ...c,
-        needs: c.needs.map(n => {
-          if (n.id !== needId) return n;
-          const fulfilled = n.reserved[reservationIndex];
-          return {
-            ...n,
-            reserved: n.reserved.filter((_, i) => i !== reservationIndex),
-            fulfilled: [...n.fulfilled, { ...fulfilled, fulfilledDate: new Date().toISOString() }]
-          };
-        })
-      };
-    });
-    saveCampaigns(updated);
-  };
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 p-4">
-      <div className="max-w-7xl mx-auto">
-        <header className="bg-white rounded-lg shadow-md p-6 mb-6">
-          <h1 className="text-3xl font-bold text-purple-900 mb-2">Seasonal Community Coordination</h1>
-          <p className="text-gray-600">Organize gift drives, holiday support, and community campaigns</p>
-        </header>
-
-        {view === 'list' && (
-          <CampaignList 
-            campaigns={campaigns} 
-            onSelect={(c) => { setSelectedCampaign(c); setView('detail'); }}
-            onAdd={() => setView('create')}
-          />
-        )}
-
-        {view === 'create' && (
-          <CampaignForm 
-            onSubmit={(c) => { addCampaign(c); setView('list'); }}
-            onCancel={() => setView('list')}
-          />
-        )}
-
-        {view === 'detail' && selectedCampaign && (
-          <CampaignDetail 
-            campaign={campaigns.find(c => c.id === selectedCampaign.id)}
-            onBack={() => { setSelectedCampaign(null); setView('list'); }}
-            onAddNeed={(need) => addNeed(selectedCampaign.id, need)}
-            onReserve={(needId, contributor) => reserveItem(selectedCampaign.id, needId, contributor)}
-            onFulfill={(needId, idx) => fulfillItem(selectedCampaign.id, needId, idx)}
-          />
-        )}
-      </div>
-    </div>
-  );
-}
-
-function CampaignList({ campaigns, onSelect, onAdd }) {
-  const activeCampaigns = campaigns.filter(c => new Date(c.deadline) >= new Date());
-  const pastCampaigns = campaigns.filter(c => new Date(c.deadline) < new Date());
-
-  return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">Active Campaigns</h2>
-        <button
-          onClick={onAdd}
-          className="flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
-        >
-          <Plus className="w-5 h-5" />
-          New Campaign
-        </button>
-      </div>
-
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {activeCampaigns.length === 0 ? (
-          <div className="col-span-full text-center py-12 text-gray-500">
-            No active campaigns. Create one to get started!
-          </div>
-        ) : (
-          activeCampaigns.map(campaign => (
-            <CampaignCard key={campaign.id} campaign={campaign} onClick={() => onSelect(campaign)} />
-          ))
-        )}
-      </div>
-
-      {pastCampaigns.length > 0 && (
-        <>
-          <h2 className="text-xl font-bold text-gray-700 mt-8">Past Campaigns</h2>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {pastCampaigns.map(campaign => (
-              <CampaignCard key={campaign.id} campaign={campaign} onClick={() => onSelect(campaign)} isPast />
-            ))}
-          </div>
-        </>
-      )}
-    </div>
-  );
-}
-
-function CampaignCard({ campaign, onClick, isPast }) {
-  const totalNeeds = campaign.needs.length;
-  const fulfilledNeeds = campaign.needs.filter(n => n.fulfilled.length > 0).length;
-  const progress = totalNeeds > 0 ? (fulfilledNeeds / totalNeeds) * 100 : 0;
-
-  return (
-    <div 
-      onClick={onClick}
-      className={`bg-white rounded-lg shadow-md p-5 cursor-pointer hover:shadow-lg transition-all ${isPast ? 'opacity-70' : ''}`}
-    >
-      <div className="flex items-start justify-between mb-3">
-        <div className="flex-1">
-          <h3 className="text-lg font-semibold text-gray-900 mb-1">{campaign.name}</h3>
-          <div className="flex items-center gap-2 text-sm text-gray-600">
-            <Calendar className="w-4 h-4" />
-            <span>Until {new Date(campaign.deadline).toLocaleDateString()}</span>
-          </div>
-        </div>
-        <Gift className="w-6 h-6 text-purple-500" />
-      </div>
-
-      <p className="text-sm text-gray-600 mb-3">{campaign.description}</p>
-
-      <div className="space-y-2">
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-gray-600">Progress</span>
-          <span className="font-semibold text-purple-600">{fulfilledNeeds}/{totalNeeds} items</span>
-        </div>
-        <div className="w-full bg-gray-200 rounded-full h-2">
-          <div 
-            className="bg-purple-600 h-2 rounded-full transition-all"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-      </div>
-
-      <div className="mt-3 pt-3 border-t border-gray-200">
-        <p className="text-xs text-gray-500">Dropoff: {campaign.location}</p>
-      </div>
-    </div>
-  );
-}
-
-function CampaignForm({ onSubmit, onCancel }) {
-  const [form, setForm] = useState({
-    name: '',
-    description: '',
-    deadline: '',
-    location: '',
-    contact: ''
-  });
-
-  const handleSubmit = () => {
-    if (!form.name || !form.deadline || !form.location) {
-      alert('Please fill in required fields');
-      return;
+      let campaigns = JSON.parse(localStorage.getItem('banaVagCampaigns') || '[]');
+      campaigns.push(campaign);
+      localStorage.setItem('banaVagCampaigns', JSON.stringify(campaigns));
+      renderCampaigns();
+      document.getElementById('campaign-name').value = '';
+      document.getElementById('campaign-deadline').value = '';
+      document.getElementById('campaign-location').value = '';
+      document.getElementById('campaign-desc').value = '';
     }
-    onSubmit(form);
-  };
 
-  return (
-    <div className="bg-white rounded-lg shadow-md p-6">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Create New Campaign</h2>
-      
-      <div className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Campaign Name *
-          </label>
-          <input
-            type="text"
-            placeholder="e.g., Christmas Gifts for Children 2025"
-            value={form.name}
-            onChange={(e) => setForm({...form, name: e.target.value})}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Description
-          </label>
-          <textarea
-            placeholder="Campaign details and purpose"
-            value={form.description}
-            onChange={(e) => setForm({...form, description: e.target.value})}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
-            rows="3"
-          />
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Deadline *
-            </label>
-            <input
-              type="date"
-              value={form.deadline}
-              onChange={(e) => setForm({...form, deadline: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Contact
-            </label>
-            <input
-              type="text"
-              placeholder="Email or phone"
-              value={form.contact}
-              onChange={(e) => setForm({...form, contact: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
-            />
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Dropoff Location *
-          </label>
-          <input
-            type="text"
-            placeholder="Where contributors can bring items"
-            value={form.location}
-            onChange={(e) => setForm({...form, location: e.target.value})}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
-          />
-        </div>
-
-        <div className="flex gap-2 pt-4">
-          <button
-            onClick={handleSubmit}
-            className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
-          >
-            Create Campaign
-          </button>
-          <button
-            onClick={onCancel}
-            className="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors"
-          >
-            Cancel
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function CampaignDetail({ campaign, onBack, onAddNeed, onReserve, onFulfill }) {
-  const [showNeedForm, setShowNeedForm] = useState(false);
-  const [reserveForm, setReserveForm] = useState({ needId: null, contributor: '' });
-
-  const handleAddNeed = (need) => {
-    onAddNeed(need);
-    setShowNeedForm(false);
-  };
-
-  const handleReserve = (needId) => {
-    if (!reserveForm.contributor) {
-      alert('Please enter your name');
-      return;
+    function addNeed(campaignId) {
+      const item = prompt("Item needed (e.g. Winter jacket size 120)");
+      const qty = prompt("Quantity needed", "1");
+      const details = prompt("Details (age, gender, etc. – optional)");
+      if (!item) return;
+      let campaigns = JSON.parse(localStorage.getItem('banaVagCampaigns') || '[]');
+      campaigns = campaigns.map(c => {
+        if (c.id === campaignId) {
+          c.needs.push({
+            id: Date.now(),
+            item,
+            quantity: parseInt(qty) || 1,
+            details: details || '',
+            reserved: [],
+            fulfilled: []
+          });
+        }
+        return c;
+      });
+      localStorage.setItem('banaVagCampaigns', JSON.stringify(campaigns));
+      renderCampaigns();
     }
-    onReserve(needId, reserveForm.contributor);
-    setReserveForm({ needId: null, contributor: '' });
-  };
 
-  return (
-    <div className="space-y-6">
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <button
-          onClick={onBack}
-          className="text-purple-600 hover:text-purple-700 mb-4 flex items-center gap-2"
-        >
-          ← Back to campaigns
-        </button>
+    function reserve(needId, campaignId) {
+      const name = prompt("Your name for coordination:");
+      if (!name) return;
+      let campaigns = JSON.parse(localStorage.getItem('banaVagCampaigns') || '[]');
+      campaigns = campaigns.map(c => {
+        if (c.id === campaignId) {
+          c.needs = c.needs.map(n => {
+            if (n.id === needId && n.reserved.length < n.quantity) {
+              n.reserved.push({ name, date: new Date().toISOString() });
+            }
+            return n;
+          });
+        }
+        return c;
+      });
+      localStorage.setItem('banaVagCampaigns', JSON.stringify(campaigns));
+      renderCampaigns();
+    }
 
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">{campaign.name}</h2>
-        <p className="text-gray-600 mb-4">{campaign.description}</p>
+    function markFulfilled(needId, resIndex, campaignId) {
+      let campaigns = JSON.parse(localStorage.getItem('banaVagCampaigns') || '[]');
+      campaigns = campaigns.map(c => {
+        if (c.id === campaignId) {
+          c.needs = c.needs.map(n => {
+            if (n.id === needId) {
+              const res = n.reserved.splice(resIndex, 1)[0];
+              n.fulfilled.push({ ...res, fulfilledDate: new Date().toISOString() });
+            }
+            return n;
+          });
+        }
+        return c;
+      });
+      localStorage.setItem('banaVagCampaigns', JSON.stringify(campaigns));
+      renderCampaigns();
+    }
 
-        <div className="grid md:grid-cols-3 gap-4 text-sm">
-          <div className="flex items-center gap-2">
-            <Calendar className="w-4 h-4 text-gray-500" />
-            <span>Deadline: {new Date(campaign.deadline).toLocaleDateString()}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Package className="w-4 h-4 text-gray-500" />
-            <span>Dropoff: {campaign.location}</span>
-          </div>
-          {campaign.contact && (
-            <div className="flex items-center gap-2">
-              <Users className="w-4 h-4 text-gray-500" />
-              <span>Contact: {campaign.contact}</span>
+    function renderCampaigns() {
+      const container = document.getElementById('campaigns');
+      let campaigns = JSON.parse(localStorage.getItem('banaVagCampaigns') || '[]');
+      if (campaigns.length === 0) {
+        container.innerHTML = '<p style="text-align:center;color:#64748b;">No active campaigns. Create one above.</p>';
+        return;
+      }
+      container.innerHTML = campaigns.map(c => {
+        const daysLeft = Math.ceil((new Date(c.deadline) - new Date()) / (1000*60*60*24));
+        return `
+          <div class="card">
+            <h3>${c.name}</h3>
+            <p><strong>Deadline:</strong> ${new Date(c.deadline).toLocaleDateString()} (${daysLeft > 0 ? daysLeft + ' days left' : 'Overdue'})</p>
+            <p><strong>Drop-off:</strong> ${c.location}</p>
+            ${c.desc ? `<p>${c.desc}</p>` : ''}
+            <button onclick="addNeed(${c.id})">Add Needed Item</button>
+            <div class="grid" style="margin-top:1rem;">
+              ${c.needs.map(n => {
+                const remaining = n.quantity - n.reserved.length - n.fulfilled.length;
+                return `
+                  <div class="need ${n.reserved.length > 0 ? 'reserved' : ''}">
+                    <strong>${n.item}</strong> × ${n.quantity}
+                    ${n.details ? `<br><em>${n.details}</em>` : ''}
+                    <p><strong>Remaining:</strong> ${remaining}</p>
+                    ${n.reserved.map((r, i) => `
+                      <div style="background:#fefce8;padding:0.5rem;margin:0.5rem 0;border-radius:4px;">
+                        Reserved by ${r.name}
+                        <button class="btn-small btn-green" onclick="markFulfilled(${n.id}, ${i}, ${c.id})">Mark received</button>
+                      </div>
+                    `).join('')}
+                    ${n.fulfilled.length > 0 ? `<p><em>${n.fulfilled.length} received</em></p>` : ''}
+                    ${remaining > 0 ? `<button onclick="reserve(${n.id}, ${c.id})">Reserve one</button>` : ''}
+                  </div>
+                `;
+              }).join('')}
             </div>
-          )}
-        </div>
-      </div>
+          </div>
+        `;
+      }).join('');
+    }
 
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xl font-bold text-gray-900">Needed Items</h3>
-          <button
-            onClick={() => setShowNeedForm(!showNeedForm)}
-            className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
-          >
-            <Plus className="w-4 h-4" />
-            Add Need
-          </button>
-        </div>
-
-        {showNeedForm && (
-          <NeedForm onSubmit={handleAddNeed} onCancel={() => setShowNeedForm(false)} />
-        )}
-
-        <div className="space-y-3">
-          {campaign.needs.length === 0 ? (
-            <p className="text-center py-8 text-gray-500">No items needed yet. Add some to get started!</p>
-          ) : (
-            campaign.needs.map(need => (
-              <NeedItem 
-                key={need.id}
-                need={need}
-                onReserve={() => setReserveForm({ needId: need.id, contributor: '' })}
-                onFulfill={(idx) => onFulfill(need.id, idx)}
-                reserveForm={reserveForm}
-                onReserveChange={(val) => setReserveForm({ ...reserveForm, contributor: val })}
-                onReserveSubmit={() => handleReserve(need.id)}
-                onReserveCancel={() => setReserveForm({ needId: null, contributor: '' })}
-              />
-            ))
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function NeedForm({ onSubmit, onCancel }) {
-  const [form, setForm] = useState({ item: '', quantity: 1, details: '' });
-
-  return (
-    <div className="bg-gray-50 p-4 rounded-lg mb-4 space-y-3">
-      <div>
-        <input
-          type="text"
-          placeholder="Item needed (e.g., Winter jacket size 110)"
-          value={form.item}
-          onChange={(e) => setForm({...form, item: e.target.value})}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-        />
-      </div>
-      <div className="flex gap-3">
-        <input
-          type="number"
-          min="1"
-          placeholder="Quantity"
-          value={form.quantity}
-          onChange={(e) => setForm({...form, quantity: parseInt(e.target.value) || 1})}
-          className="w-24 px-3 py-2 border border-gray-300 rounded-lg"
-        />
-        <input
-          type="text"
-          placeholder="Additional details (optional)"
-          value={form.details}
-          onChange={(e) => setForm({...form, details: e.target.value})}
-          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg"
-        />
-      </div>
-      <div className="flex gap-2">
-        <button
-          onClick={() => form.item && onSubmit(form)}
-          className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
-        >
-          Add
-        </button>
-        <button
-          onClick={onCancel}
-          className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
-        >
-          Cancel
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function NeedItem({ need, onReserve, onFulfill, reserveForm, onReserveChange, onReserveSubmit, onReserveCancel }) {
-  const remaining = need.quantity - need.reserved.length - need.fulfilled.length;
-  const isActive = reserveForm.needId === need.id;
-
-  return (
-    <div className="border border-gray-200 rounded-lg p-4">
-      <div className="flex items-start justify-between mb-2">
-        <div className="flex-1">
-          <h4 className="font-semibold text-gray-900">{need.item}</h4>
-          {need.details && <p className="text-sm text-gray-600">{need.details}</p>}
-        </div>
-        <div className="text-right">
-          <div className="text-sm font-semibold text-purple-600">{remaining} needed</div>
-          <div className="text-xs text-gray-500">{need.fulfilled.length} received</div>
-        </div>
-      </div>
-
-      {need.reserved.length > 0 && (
-        <div className="mb-2 space-y-1">
-          {need.reserved.map((res, idx) => (
-            <div key={idx} className="flex items-center justify-between text-sm bg-yellow-50 px-2 py-1 rounded">
-              <span className="text-gray-700">Reserved by {res.contributor}</span>
-              <button
-                onClick={() => onFulfill(idx)}
-                className="text-green-600 hover:text-green-700 flex items-center gap-1"
-              >
-                <Check className="w-4 h-4" />
-                Mark received
-              </button>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {isActive ? (
-        <div className="flex gap-2 mt-2">
-          <input
-            type="text"
-            placeholder="Your name"
-            value={reserveForm.contributor}
-            onChange={(e) => onReserveChange(e.target.value)}
-            className="flex-1 px-3 py-1 border border-gray-300 rounded text-sm"
-          />
-          <button
-            onClick={onReserveSubmit}
-            className="px-3 py-1 bg-green-600 text-white rounded text-sm hover:bg-green-700"
-          >
-            Confirm
-          </button>
-          <button
-            onClick={onReserveCancel}
-            className="px-3 py-1 bg-gray-300 text-gray-700 rounded text-sm hover:bg-gray-400"
-          >
-            Cancel
-          </button>
-        </div>
-      ) : remaining > 0 && (
-        <button
-          onClick={onReserve}
-          className="mt-2 px-4 py-1 bg-purple-100 text-purple-700 rounded text-sm hover:bg-purple-200"
-        >
-          Reserve to contribute
-        </button>
-      )}
-    </div>
-  );
-}
+    renderCampaigns();
+  </script>
+</body>
+</html>
