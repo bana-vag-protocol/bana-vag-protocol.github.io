@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bana Väg – Food Rescue Board</title>
+  <style>
+    body { font-family: system-ui; max-width: 900px; margin: 2rem auto; padding: 1rem; background: #f8fafc; }
+    .offer { background: #ecfdf5; border-left: 4px solid #10b981; }
+    .claimed { background: #fef3c7; opacity: 0.7; }
+    .expired { background: #fee2e2; opacity: 0.6; }
+    .card { padding: 1rem; margin: 1rem 0; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    button { padding: 0.5rem 1rem; border: none; border-radius: 6px; cursor: pointer; }
+    .claim-btn { background: #10b981; color: white; }
+    .post-btn { background: #6366f1; color: white; }
+    input, textarea { width: 100%; padding: 0.5rem; margin: 0.5rem 0; border: 1px solid #ccc; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <h1>Food Rescue Board – Phase 1 Pilot</h1>
+  <p>Shops post surplus. Communities claim pickup. No money. No obligation.</p>
+
+  <div class="card">
+    <h2>Post Surplus Food</h2>
+    <input id="desc" placeholder="Description (e.g. 20 loaves, pastries)">
+    <input id="qty" placeholder="Quantity">
+    <input id="pickup" placeholder="Pickup window (e.g. today 17-19)">
+    <input id="location" placeholder="Address or area">
+    <input id="contact" placeholder="Your contact (phone/email)">
+    <button class="post-btn" onclick="postOffer()">Post Offer</button>
+  </div>
+
+  <h2>Available Food</h2>
+  <div id="board"></div>
+
+  <script>
+    function postOffer() {
+      const offer = {
+        id: Date.now(),
+        desc: document.getElementById('desc').value,
+        qty: document.getElementById('qty').value,
+        pickup: document.getElementById('pickup').value,
+        location: document.getElementById('location').value,
+        contact: document.getElementById('contact').value,
+        posted: new Date().toISOString(),
+        claimed: null
+      };
+      if (!offer.desc || !offer.pickup) return alert("Fill required fields");
+      let board = JSON.parse(localStorage.getItem('foodBoard') || '[]');
+      board.push(offer);
+      localStorage.setItem('foodBoard', JSON.stringify(board));
+      render();
+      document.querySelectorAll('input').forEach(i => i.value = '');
+    }
+
+    function claim(id) {
+      const name = prompt("Your name/community for pickup coordination:");
+      if (!name) return;
+      let board = JSON.parse(localStorage.getItem('foodBoard') || '[]');
+      board = board.map(o => o.id === id ? {...o, claimed: {name, time: new Date().toISOString()}} : o);
+      localStorage.setItem('foodBoard', JSON.stringify(board));
+      render();
+    }
+
+    function render() {
+      const container = document.getElementById('board');
+      let board = JSON.parse(localStorage.getItem('foodBoard') || '[]');
+      const now = Date.now();
+      container.innerHTML = board
+        .sort((a,b) => b.id - a.id)
+        .map(o => {
+          const isClaimed = !!o.claimed;
+          const isExpired = new Date(o.pickup.split(' ')[1] || o.pickup) < new Date();
+          return `
+            <div class="card ${isClaimed ? 'claimed' : isExpired ? 'expired' : 'offer'}">
+              <strong>${o.desc}</strong> – ${o.qty}<br>
+              Pickup: ${o.pickup} @ ${o.location}<br>
+              Contact: ${o.contact}<br>
+              ${isClaimed ? `<em>Claimed by ${o.claimed.name}</em>` : 
+                isExpired ? `<em>Expired</em>` : 
+                `<button class="claim-btn" onclick="claim(${o.id})">Claim for Pickup</button>`}
+              <small>Posted: ${new Date(o.posted).toLocaleString()}</small>
+            </div>
+          `;
+        }).join('');
+    }
+
+    render();
+  </script>
+</body>
+</html>
