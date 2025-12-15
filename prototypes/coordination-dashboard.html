@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bana Väg – Pilot Coordination Dashboard</title>
+  <style>
+    body { font-family: Arial; max-width: 900px; margin: 2rem auto; }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+    th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: left; }
+    .need { background: #fff0f0; }
+    .offer { background: #f0fff0; }
+  </style>
+</head>
+<body>
+  <h1>Phase 1 Pilot: Resource & Need Board</h1>
+  <p>Pilot: <strong>[Name your pilot, e.g. "Stockholm Food Rescue 2026"]</strong></p>
+
+  <h2>Post a Need or Offer</h2>
+  <select id="type"><option value="need">Need</option><option value="offer">Offer</option></select>
+  <input type="text" id="item" placeholder="Item/Service (e.g. 50 kg bread, Thursday pickup)">
+  <input type="text" id="contact" placeholder="Contact (email/phone)">
+  <button onclick="addItem()">Post</button>
+
+  <h2>Current Board</h2>
+  <table id="board">
+    <thead><tr><th>Type</th><th>Description</th><th>Contact</th><th>Date</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    function addItem() {
+      const type = document.getElementById('type').value;
+      const item = document.getElementById('item').value;
+      const contact = document.getElementById('contact').value;
+      if (!item || !contact) return alert("Fill all fields");
+
+      const entry = { type, item, contact, date: new Date().toLocaleDateString() };
+      let board = JSON.parse(localStorage.getItem('pilotBoard') || '[]');
+      board.push(entry);
+      localStorage.setItem('pilotBoard', JSON.stringify(board));
+      renderBoard();
+    }
+
+    function renderBoard() {
+      const tbody = document.querySelector('#board tbody');
+      const board = JSON.parse(localStorage.getItem('pilotBoard') || '[]');
+      tbody.innerHTML = board.reverse().map(e => `
+        <tr class="${e.type}">
+          <td><strong>${e.type.toUpperCase()}</strong></td>
+          <td>${e.item}</td>
+          <td>${e.contact}</td>
+          <td>${e.date}</td>
+        </tr>
+      `).join('');
+    }
+
+    renderBoard();
+  </script>
+
+  <h2>Next Meeting</h2>
+  <p>Date: <input type="date" id="nextDate"> Time: <input type="time" id="nextTime"></p>
+  <button onclick="localStorage.setItem('nextMeeting', JSON.stringify({date:document.getElementById('nextDate').value, time:document.getElementById('nextTime').value})); alert('Saved')">Save Next Meeting</button>
+  <p id="meetingDisplay"></p>
+
+  <script>
+    const saved = JSON.parse(localStorage.getItem('nextMeeting') || '{}');
+    if (saved.date) {
+      document.getElementById('meetingDisplay').innerHTML = `<strong>Next review: ${saved.date} at ${saved.time || 'TBD'}</strong>`;
+    }
+  </script>
+</body>
+</html>
