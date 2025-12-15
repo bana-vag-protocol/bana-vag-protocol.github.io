@@ -1,548 +1,194 @@
-import React, { useState, useEffect } from 'react';
-import { Search, Plus, FileText, Calendar, DollarSign, CheckCircle, Clock, AlertTriangle, Filter } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bana Väg – Grant Navigator</title>
+  <style>
+    :root { --primary: #059669; --urgent: #dc2626; --bg: #f0fdf4; }
+    body { font-family: system-ui, sans-serif; background: var(--bg); margin: 0; padding: 0; color: #1e293b; }
+    .container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+    header { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; margin-bottom: 2rem; }
+    h1 { font-size: 2.5rem; color: #065f46; margin: 0 0 0.5rem; }
+    .tabs { display: flex; background: white; border-radius: 12px; overflow: hidden; margin-bottom: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+    .tab { flex: 1; padding: 1rem; text-align: center; cursor: pointer; background: #f1f5f9; }
+    .tab.active { background: var(--primary); color: white; }
+    .card { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 1.5rem; }
+    .urgent { border-left: 4px solid var(--urgent); }
+    input, select, textarea { width: 100%; padding: 0.75rem; margin: 0.5rem 0; border: 1px solid #cbd5e1; border-radius: 8px; }
+    button { padding: 0.75rem 1.5rem; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; }
+    button:hover { background: #047857; }
+    .status-pending { background: #fef3c7; color: #92400e; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.875rem; }
+    .status-approved { background: #d1fae5; color: #065f46; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.875rem; }
+    .status-denied { background: #fee2e2; color: #991b1b; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.875rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Grant Navigator</h1>
+      <p>Track available foundation grants and application status (privacy-protected)</p>
+    </header>
 
-export default function GrantNavigator() {
-  const [grants, setGrants] = useState([]);
-  const [applications, setApplications] = useState([]);
-  const [view, setView] = useState('grants');
-  const [filter, setFilter] = useState({ category: 'all', deadline: 'all' });
-  const [searchTerm, setSearchTerm] = useState('');
-
-  useEffect(() => {
-    const storedGrants = localStorage.getItem('banaVagGrants');
-    const storedApps = localStorage.getItem('banaVagApplications');
-    if (storedGrants) setGrants(JSON.parse(storedGrants));
-    if (storedApps) setApplications(JSON.parse(storedApps));
-  }, []);
-
-  const saveGrants = (updated) => {
-    setGrants(updated);
-    localStorage.setItem('banaVagGrants', JSON.stringify(updated));
-  };
-
-  const saveApplications = (updated) => {
-    setApplications(updated);
-    localStorage.setItem('banaVagApplications', JSON.stringify(updated));
-  };
-
-  const categories = [
-    'Emergency Assistance',
-    'Education/Training',
-    'Healthcare',
-    'Housing',
-    'Debt Relief',
-    'Business/Employment',
-    'Family Support',
-    'Other'
-  ];
-
-  const addGrant = (grant) => {
-    saveGrants([...grants, { ...grant, id: Date.now(), posted: new Date().toISOString() }]);
-  };
-
-  const addApplication = (app) => {
-    saveApplications([...applications, { 
-      ...app, 
-      id: Date.now(), 
-      submitted: new Date().toISOString(),
-      status: 'pending'
-    }]);
-  };
-
-  const updateApplicationStatus = (id, status, notes) => {
-    const updated = applications.map(app =>
-      app.id === id ? { ...app, status, statusNotes: notes, lastUpdated: new Date().toISOString() } : app
-    );
-    saveApplications(updated);
-  };
-
-  const filteredGrants = grants.filter(g => {
-    const matchesCategory = filter.category === 'all' || g.category === filter.category;
-    const deadline = new Date(g.deadline);
-    const now = new Date();
-    const daysUntil = (deadline - now) / (1000 * 60 * 60 * 24);
-    
-    let matchesDeadline = true;
-    if (filter.deadline === 'urgent') matchesDeadline = daysUntil <= 14;
-    else if (filter.deadline === 'month') matchesDeadline = daysUntil <= 30;
-    
-    const matchesSearch = !searchTerm || 
-      g.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      g.foundation.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    return matchesCategory && matchesDeadline && matchesSearch;
-  });
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50 p-4">
-      <div className="max-w-7xl mx-auto">
-        <header className="bg-white rounded-lg shadow-md p-6 mb-6">
-          <h1 className="text-3xl font-bold text-green-900 mb-2">Foundation Grant Navigator</h1>
-          <p className="text-gray-600">Track grants and support parishioners through application processes</p>
-        </header>
-
-        <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6 rounded">
-          <div className="flex items-start">
-            <FileText className="w-5 h-5 text-blue-600 mt-0.5 mr-2 flex-shrink-0" />
-            <div className="text-sm text-blue-800">
-              <strong>Privacy Notice:</strong> Store only non-identifying information publicly. 
-              Full applications and personal details should be managed through secure channels.
-            </div>
-          </div>
-        </div>
-
-        <div className="flex gap-4 mb-6">
-          <button
-            onClick={() => setView('grants')}
-            className={`px-6 py-3 rounded-lg font-medium transition-colors ${
-              view === 'grants' 
-                ? 'bg-green-600 text-white' 
-                : 'bg-white text-gray-700 hover:bg-gray-100'
-            }`}
-          >
-            Available Grants ({grants.length})
-          </button>
-          <button
-            onClick={() => setView('applications')}
-            className={`px-6 py-3 rounded-lg font-medium transition-colors ${
-              view === 'applications' 
-                ? 'bg-green-600 text-white' 
-                : 'bg-white text-gray-700 hover:bg-gray-100'
-            }`}
-          >
-            Active Applications ({applications.length})
-          </button>
-        </div>
-
-        {view === 'grants' && (
-          <GrantsView
-            grants={filteredGrants}
-            filter={filter}
-            setFilter={setFilter}
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            categories={categories}
-            onAddGrant={addGrant}
-            onStartApplication={addApplication}
-          />
-        )}
-
-        {view === 'applications' && (
-          <ApplicationsView
-            applications={applications}
-            grants={grants}
-            onUpdateStatus={updateApplicationStatus}
-          />
-        )}
-      </div>
+    <div class="tabs">
+      <div class="tab active" onclick="switchView('grants')">Available Grants</div>
+      <div class="tab" onclick="switchView('apps')">My Applications</div>
     </div>
-  );
-}
 
-function GrantsView({ grants, filter, setFilter, searchTerm, setSearchTerm, categories, onAddGrant, onStartApplication }) {
-  const [showForm, setShowForm] = useState(false);
-
-  return (
-    <div className="space-y-6">
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <div className="flex flex-col lg:flex-row gap-4 mb-4">
-          <div className="flex-1 relative">
-            <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search grants or foundations..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-            />
-          </div>
-          <select
-            value={filter.category}
-            onChange={(e) => setFilter({ ...filter, category: e.target.value })}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-          >
-            <option value="all">All Categories</option>
-            {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
-          </select>
-          <select
-            value={filter.deadline}
-            onChange={(e) => setFilter({ ...filter, deadline: e.target.value })}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-          >
-            <option value="all">All Deadlines</option>
-            <option value="urgent">Urgent (≤14 days)</option>
-            <option value="month">This Month</option>
-          </select>
-          <button
-            onClick={() => setShowForm(!showForm)}
-            className="flex items-center gap-2 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
-          >
-            <Plus className="w-5 h-5" />
-            Add Grant
-          </button>
-        </div>
-
-        {showForm && (
-          <GrantForm 
-            categories={categories}
-            onSubmit={(g) => { onAddGrant(g); setShowForm(false); }}
-            onCancel={() => setShowForm(false)}
-          />
-        )}
-      </div>
-
-      <div className="grid gap-4 md:grid-cols-2">
-        {grants.length === 0 ? (
-          <div className="col-span-2 text-center py-12 text-gray-500">
-            No grants found. Add grants to help track opportunities.
-          </div>
-        ) : (
-          grants.map(grant => (
-            <GrantCard key={grant.id} grant={grant} onApply={onStartApplication} />
-          ))
-        )}
-      </div>
-    </div>
-  );
-}
-
-function GrantForm({ categories, onSubmit, onCancel }) {
-  const [form, setForm] = useState({
-    name: '',
-    foundation: '',
-    category: '',
-    amount: '',
-    deadline: '',
-    eligibility: '',
-    requirements: '',
-    url: '',
-    contact: ''
-  });
-
-  return (
-    <div className="bg-gray-50 p-6 rounded-lg mb-4 space-y-4">
-      <div className="grid md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Grant Name *</label>
-          <input
-            type="text"
-            value={form.name}
-            onChange={(e) => setForm({...form, name: e.target.value})}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-            placeholder="e.g., Emergency Relief Fund"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Foundation *</label>
-          <input
-            type="text"
-            value={form.foundation}
-            onChange={(e) => setForm({...form, foundation: e.target.value})}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-            placeholder="Organization name"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Category *</label>
-          <select
-            value={form.category}
-            onChange={(e) => setForm({...form, category: e.target.value})}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-          >
-            <option value="">Select category</option>
-            {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
-          </select>
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Amount Range</label>
-          <input
-            type="text"
-            value={form.amount}
-            onChange={(e) => setForm({...form, amount: e.target.value})}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-            placeholder="e.g., 5,000-20,000 SEK"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Deadline *</label>
-          <input
-            type="date"
-            value={form.deadline}
-            onChange={(e) => setForm({...form, deadline: e.target.value})}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Contact</label>
-          <input
-            type="text"
-            value={form.contact}
-            onChange={(e) => setForm({...form, contact: e.target.value})}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-            placeholder="Email or phone"
-          />
-        </div>
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Eligibility Criteria</label>
-        <textarea
-          value={form.eligibility}
-          onChange={(e) => setForm({...form, eligibility: e.target.value})}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-          rows="2"
-          placeholder="Who is eligible to apply?"
-        />
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Required Documents</label>
-        <textarea
-          value={form.requirements}
-          onChange={(e) => setForm({...form, requirements: e.target.value})}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-          rows="2"
-          placeholder="What documents are needed?"
-        />
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Application URL</label>
-        <input
-          type="url"
-          value={form.url}
-          onChange={(e) => setForm({...form, url: e.target.value})}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-          placeholder="https://..."
-        />
-      </div>
-      <div className="flex gap-2">
-        <button
-          onClick={() => {
-            if (!form.name || !form.foundation || !form.category || !form.deadline) {
-              alert('Please fill required fields');
-              return;
-            }
-            onSubmit(form);
-          }}
-          className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
-        >
-          Add Grant
-        </button>
-        <button
-          onClick={onCancel}
-          className="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400"
-        >
-          Cancel
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function GrantCard({ grant, onApply }) {
-  const deadline = new Date(grant.deadline);
-  const now = new Date();
-  const daysUntil = Math.ceil((deadline - now) / (1000 * 60 * 60 * 24));
-  const isUrgent = daysUntil <= 14;
-
-  return (
-    <div className="bg-white rounded-lg shadow-md p-5 hover:shadow-lg transition-shadow">
-      <div className="flex items-start justify-between mb-3">
-        <div className="flex-1">
-          <h3 className="text-lg font-semibold text-gray-900 mb-1">{grant.name}</h3>
-          <p className="text-sm text-gray-600">{grant.foundation}</p>
-        </div>
-        {isUrgent && (
-          <span className="flex items-center gap-1 px-2 py-1 bg-red-100 text-red-700 text-xs rounded-full">
-            <AlertTriangle className="w-3 h-3" />
-            Urgent
-          </span>
-        )}
-      </div>
-
-      <span className="inline-block px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full mb-3">
-        {grant.category}
-      </span>
-
-      <div className="space-y-2 text-sm mb-4">
-        {grant.amount && (
-          <div className="flex items-center gap-2">
-            <DollarSign className="w-4 h-4 text-gray-500" />
-            <span className="text-gray-700">{grant.amount}</span>
-          </div>
-        )}
-        <div className="flex items-center gap-2">
-          <Calendar className="w-4 h-4 text-gray-500" />
-          <span className="text-gray-700">
-            Deadline: {deadline.toLocaleDateString()} 
-            <span className={isUrgent ? 'text-red-600 font-semibold ml-1' : 'text-gray-500 ml-1'}>
-              ({daysUntil} days)
-            </span>
-          </span>
-        </div>
-      </div>
-
-      {grant.eligibility && (
-        <div className="bg-gray-50 p-3 rounded mb-3">
-          <p className="text-xs font-medium text-gray-700 mb-1">Eligibility:</p>
-          <p className="text-xs text-gray-600">{grant.eligibility}</p>
-        </div>
-      )}
-
-      {grant.requirements && (
-        <div className="bg-gray-50 p-3 rounded mb-3">
-          <p className="text-xs font-medium text-gray-700 mb-1">Required Documents:</p>
-          <p className="text-xs text-gray-600">{grant.requirements}</p>
-        </div>
-      )}
-
-      <div className="flex gap-2 pt-3 border-t border-gray-200">
-        {grant.url && (
-          <a
-            href={grant.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 text-center px-4 py-2 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 text-sm"
-          >
-            View Details
-          </a>
-        )}
-        <button
-          onClick={() => onApply({ grantId: grant.id, grantName: grant.name })}
-          className="flex-1 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 text-sm"
-        >
-          Track Application
-        </button>
-      </div>
-
-      {grant.contact && (
-        <p className="text-xs text-gray-500 mt-2">Contact: {grant.contact}</p>
-      )}
-    </div>
-  );
-}
-
-function ApplicationsView({ applications, grants, onUpdateStatus }) {
-  const [selectedApp, setSelectedApp] = useState(null);
-
-  const statuses = [
-    { value: 'pending', label: 'Pending', color: 'yellow', icon: Clock },
-    { value: 'submitted', label: 'Submitted', color: 'blue', icon: FileText },
-    { value: 'approved', label: 'Approved', color: 'green', icon: CheckCircle },
-    { value: 'denied', label: 'Denied', color: 'red', icon: AlertTriangle },
-    { value: 'withdrawn', label: 'Withdrawn', color: 'gray', icon: AlertTriangle }
-  ];
-
-  const getStatusInfo = (status) => statuses.find(s => s.value === status) || statuses[0];
-
-  return (
-    <div className="space-y-4">
-      {applications.length === 0 ? (
-        <div className="bg-white rounded-lg shadow-md p-12 text-center text-gray-500">
-          No applications being tracked. Start tracking from the Available Grants tab.
-        </div>
-      ) : (
-        applications.map(app => {
-          const grant = grants.find(g => g.id === app.grantId);
-          const statusInfo = getStatusInfo(app.status);
-          const StatusIcon = statusInfo.icon;
-
-          return (
-            <div key={app.id} className="bg-white rounded-lg shadow-md p-5">
-              <div className="flex items-start justify-between mb-3">
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-gray-900">{app.grantName}</h3>
-                  <p className="text-sm text-gray-600">
-                    Applicant Reference: {app.applicantRef || 'Anonymous'}
-                  </p>
-                </div>
-                <span className={`flex items-center gap-1 px-3 py-1 bg-${statusInfo.color}-100 text-${statusInfo.color}-800 rounded-full text-sm`}>
-                  <StatusIcon className="w-4 h-4" />
-                  {statusInfo.label}
-                </span>
-              </div>
-
-              {app.statusNotes && (
-                <div className="bg-gray-50 p-3 rounded mb-3">
-                  <p className="text-sm text-gray-700">{app.statusNotes}</p>
-                </div>
-              )}
-
-              <div className="flex items-center gap-4 text-xs text-gray-500 mb-3">
-                <span>Submitted: {new Date(app.submitted).toLocaleDateString()}</span>
-                {app.lastUpdated && (
-                  <span>Updated: {new Date(app.lastUpdated).toLocaleDateString()}</span>
-                )}
-              </div>
-
-              <div className="flex gap-2">
-                <button
-                  onClick={() => setSelectedApp(app.id === selectedApp ? null : app.id)}
-                  className="px-4 py-2 bg-green-100 text-green-700 rounded hover:bg-green-200 text-sm"
-                >
-                  Update Status
-                </button>
-              </div>
-
-              {selectedApp === app.id && (
-                <StatusUpdateForm
-                  currentStatus={app.status}
-                  statuses={statuses}
-                  onUpdate={(status, notes) => {
-                    onUpdateStatus(app.id, status, notes);
-                    setSelectedApp(null);
-                  }}
-                  onCancel={() => setSelectedApp(null)}
-                />
-              )}
-            </div>
-          );
-        })
-      )}
-    </div>
-  );
-}
-
-function StatusUpdateForm({ currentStatus, statuses, onUpdate, onCancel }) {
-  const [status, setStatus] = useState(currentStatus);
-  const [notes, setNotes] = useState('');
-
-  return (
-    <div className="mt-4 p-4 bg-gray-50 rounded-lg space-y-3">
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">New Status</label>
-        <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-        >
-          {statuses.map(s => (
-            <option key={s.value} value={s.value}>{s.label}</option>
-          ))}
+    <div id="grants-view">
+      <div class="card">
+        <h2>Add Known Grant Opportunity</h2>
+        <input id="grant-name" placeholder="Grant name">
+        <input id="grant-foundation" placeholder="Foundation/Organization">
+        <select id="grant-category">
+          <option value="">Category</option>
+          <option>Emergency Assistance</option>
+          <option>Education/Training</option>
+          <option>Healthcare</option>
+          <option>Housing</option>
+          <option>Debt Relief</option>
+          <option>Family Support</option>
+          <option>Other</option>
         </select>
+        <input type="number" id="grant-amount" placeholder="Typical amount (SEK)">
+        <input type="date" id="grant-deadline">
+        <textarea id="grant-eligibility" rows="3" placeholder="Eligibility criteria"></textarea>
+        <input id="grant-link" placeholder="Application link or contact">
+        <button onclick="addGrant()">Add Grant</button>
       </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
-        <textarea
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg"
-          rows="2"
-          placeholder="Add any relevant notes or updates..."
-        />
-      </div>
-      <div className="flex gap-2">
-        <button
-          onClick={() => onUpdate(status, notes)}
-          className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-        >
-          Update
-        </button>
-        <button
-          onClick={onCancel}
-          className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
-        >
-          Cancel
-        </button>
-      </div>
+
+      <h2>Current Grant Opportunities</h2>
+      <div id="grants-list"></div>
     </div>
-  );
-}
+
+    <div id="apps-view" style="display:none;">
+      <div class="card">
+        <h2>Track New Application</h2>
+        <input id="app-ref" placeholder="Reference code or person initials">
+        <select id="app-grant">
+          <option value="">Select grant</option>
+        </select>
+        <textarea id="app-notes" rows="2" placeholder="Initial notes"></textarea>
+        <button onclick="addApplication()">Start Tracking</button>
+      </div>
+
+      <h2>Active Applications</h2>
+      <div id="apps-list"></div>
+    </div>
+  </div>
+
+  <script>
+    function switchView(view) {
+      document.getElementById('grants-view').style.display = view === 'grants' ? 'block' : 'none';
+      document.getElementById('apps-view').style.display = view === 'apps' ? 'block' : 'none';
+      document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.textContent.includes(view === 'grants' ? 'Grants' : 'Applications')));
+      if (view === 'apps') populateGrantSelect();
+    }
+
+    function addGrant() {
+      const grant = {
+        id: Date.now(),
+        name: document.getElementById('grant-name').value.trim(),
+        foundation: document.getElementById('grant-foundation').value.trim(),
+        category: document.getElementById('grant-category').value,
+        amount: document.getElementById('grant-amount').value,
+        deadline: document.getElementById('grant-deadline').value,
+        eligibility: document.getElementById('grant-eligibility').value.trim(),
+        link: document.getElementById('grant-link').value.trim(),
+        posted: new Date().toISOString()
+      };
+      if (!grant.name || !grant.deadline) return alert("Name and deadline required");
+      let grants = JSON.parse(localStorage.getItem('banaVagGrants') || '[]');
+      grants.push(grant);
+      localStorage.setItem('banaVagGrants', JSON.stringify(grants));
+      renderGrants();
+    }
+
+    function addApplication() {
+      const ref = document.getElementById('app-ref').value.trim();
+      const grantId = document.getElementById('app-grant').value;
+      if (!ref || !grantId) return alert("Reference and grant required");
+      const app = {
+        id: Date.now(),
+        ref,
+        grantId: parseInt(grantId),
+        notes: document.getElementById('app-notes').value.trim(),
+        status: 'pending',
+        submitted: new Date().toISOString()
+      };
+      let apps = JSON.parse(localStorage.getItem('banaVagApplications') || '[]');
+      apps.push(app);
+      localStorage.setItem('banaVagApplications', JSON.stringify(apps));
+      renderApplications();
+    }
+
+    function updateStatus(id, status) {
+      const notes = prompt("Notes for status change (optional):");
+      let apps = JSON.parse(localStorage.getItem('banaVagApplications') || '[]');
+      apps = apps.map(a => a.id === id ? {...a, status, statusNotes: notes, lastUpdated: new Date().toISOString()} : a);
+      localStorage.setItem('banaVagApplications', JSON.stringify(apps));
+      renderApplications();
+    }
+
+    function populateGrantSelect() {
+      const select = document.getElementById('app-grant');
+      const grants = JSON.parse(localStorage.getItem('banaVagGrants') || '[]');
+      select.innerHTML = '<option value="">Select grant</option>' + grants.map(g => 
+        `<option value="${g.id}">${g.name} – ${g.foundation}</option>`
+      ).join('');
+    }
+
+    function renderGrants() {
+      const list = document.getElementById('grants-list');
+      let grants = JSON.parse(localStorage.getItem('banaVagGrants') || '[]');
+      if (grants.length === 0) {
+        list.innerHTML = '<p style="text-align:center;color:#64748b;">No grants tracked yet.</p>';
+        return;
+      }
+      const now = new Date();
+      list.innerHTML = grants.sort((a,b) => new Date(a.deadline) - new Date(b.deadline)).map(g => {
+        const daysLeft = Math.ceil((new Date(g.deadline) - now) / (1000*60*60*24));
+        const isUrgent = daysLeft <= 14;
+        return `
+          <div class="card ${isUrgent ? 'urgent' : ''}">
+            <h3>${g.name}</h3>
+            <p><strong>Foundation:</strong> ${g.foundation}</p>
+            <p><strong>Category:</strong> ${g.category}</p>
+            ${g.amount ? `<p><strong>Typical amount:</strong> ${g.amount} SEK</p>` : ''}
+            <p><strong>Deadline:</strong> ${new Date(g.deadline).toLocaleDateString()} ${isUrgent ? '<strong style="color:#dc2626"> (URGENT – ' + daysLeft + ' days)</strong>' : ''}</p>
+            ${g.eligibility ? `<p><strong>Eligibility:</strong> ${g.eligibility}</p>` : ''}
+            ${g.link ? `<p><strong>Contact/Link:</strong> ${g.link}</p>` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderApplications() {
+      const list = document.getElementById('apps-list');
+      let apps = JSON.parse(localStorage.getItem('banaVagApplications') || '[]');
+      const grants = JSON.parse(localStorage.getItem('banaVagGrants') || '[]');
+      const grantMap = Object.fromEntries(grants.map(g => [g.id, g]));
+      if (apps.length === 0) {
+        list.innerHTML = '<p style="text-align:center;color:#64748b;">No applications being tracked.</p>';
+        return;
+      }
+      list.innerHTML = apps.map(a => {
+        const grant = grantMap[a.grantId] || { name: 'Unknown grant' };
+        return `
+          <div class="card">
+            <h3>Ref: ${a.ref} – ${grant.name}</h3>
+            <span class="status-${a.status}">${a.status.toUpperCase()}</span>
+            ${a.notes ? `<p><strong>Notes:</strong> ${a.notes}</p>` : ''}
+            ${a.statusNotes ? `<p><em>Last update: ${a.statusNotes}</em></p>` : ''}
+            <p>Submitted: ${new Date(a.submitted).toLocaleDateString()}</p>
+            <button onclick="updateStatus(${a.id}, a.status === 'pending' ? 'submitted' : a.status === 'submitted' ? 'approved' : 'denied')">Update Status →</button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    renderGrants();
+    renderApplications();
+  </script>
+</body>
+</html>
