@@ -1,313 +1,137 @@
-import React, { useState, useEffect } from 'react';
-import { Search, Plus, X, Calendar, MapPin, Award, AlertCircle } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bana Väg – Skill & Service Registry</title>
+  <style>
+    :root { --primary: #4f46e5; --warning: #f59e0b; --bg: #f8fafc; }
+    body { font-family: system-ui, sans-serif; background: var(--bg); margin: 0; padding: 0; color: #1e293b; }
+    .container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
+    header { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; margin-bottom: 2rem; }
+    h1 { font-size: 2.5rem; color: #0f172a; margin: 0 0 0.5rem; }
+    .warning { background: #fffbeb; border-left: 4px solid var(--warning); padding: 1rem; margin: 2rem 0; border-radius: 8px; }
+    .form-card, .list { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 2rem; }
+    input, select, textarea { width: 100%; padding: 0.75rem; margin: 0.5rem 0; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; }
+    button { padding: 0.75rem 1.5rem; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; }
+    button:hover { background: #4338ca; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+    .card { border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.5rem; background: #ffffff; }
+    .category { display: inline-block; background: #e0e7ff; color: #4f46e5; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.875rem; font-weight: 600; }
+    .limitations { background: #fffbeb; border-left: 3px solid var(--warning); padding: 0.75rem; margin-top: 1rem; font-size: 0.9rem; }
+    .actions { margin-top: 1rem; text-align: right; }
+    .actions button { background: #ef4444; padding: 0.5rem 1rem; font-size: 0.875rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Community Skills & Services</h1>
+      <p>Connecting voluntary professional help with those in need</p>
+    </header>
 
-export default function SkillsRegistry() {
-  const [skills, setSkills] = useState([]);
-  const [filter, setFilter] = useState('all');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [showForm, setShowForm] = useState(false);
+    <div class="warning">
+      <strong>Important:</strong> All services are voluntary offerings from individuals, not institutional commitments. 
+      Always independently verify credentials and understand stated limitations before engaging any service.
+    </div>
 
-  const categories = [
-    'Legal Services',
-    'Medical/Dental',
-    'Personal Care',
-    'Education/Tutoring',
-    'Financial Guidance',
-    'Language Services',
-    'Technical Skills',
-    'Other'
-  ];
+    <div class="form-card">
+      <h2>Offer Your Skill</h2>
+      <input id="skill" placeholder="Skill or service (e.g. Legal consultation, Dental check-up)">
+      <select id="category">
+        <option value="">Select category</option>
+        <option>Legal Services</option>
+        <option>Medical/Dental</option>
+        <option>Personal Care</option>
+        <option>Education/Tutoring</option>
+        <option>Financial Guidance</option>
+        <option>Language Services</option>
+        <option>Technical Skills</option>
+        <option>Other</option>
+      </select>
+      <input id="provider" placeholder="Your name or 'Anonymous volunteer'">
+      <input id="credentials" placeholder="Credentials (e.g. Licensed dentist, Bar association member)">
+      <textarea id="limitations" rows="3" placeholder="Important limitations (e.g. consultation only, no court representation, no emergency care)"></textarea>
+      <input id="availability" placeholder="Availability (e.g. Tuesdays 18-20, by appointment)">
+      <input id="location" placeholder="Location (e.g. Uppsala, online)">
+      <input id="contact" placeholder="Contact method (email, phone – keep secure)">
+      <button onclick="addSkill()">Post Offering</button>
+    </div>
 
-  useEffect(() => {
-    const stored = localStorage.getItem('banaVagSkills');
-    if (stored) setSkills(JSON.parse(stored));
-  }, []);
+    <div class="list">
+      <h2>Available Services</h2>
+      <div id="skills-grid" class="grid"></div>
+      <p id="empty" style="text-align:center;color:#64748b;display:none;">No services posted yet. Be the first to offer help!</p>
+    </div>
+  </div>
 
-  const saveSkills = (updated) => {
-    setSkills(updated);
-    localStorage.setItem('banaVagSkills', JSON.stringify(updated));
-  };
-
-  const addSkill = (skill) => {
-    saveSkills([...skills, { ...skill, id: Date.now(), posted: new Date().toISOString() }]);
-    setShowForm(false);
-  };
-
-  const removeSkill = (id) => {
-    if (confirm('Remove this skill offering?')) {
-      saveSkills(skills.filter(s => s.id !== id));
+  <script>
+    function addSkill() {
+      const skill = {
+        id: Date.now(),
+        skill: document.getElementById('skill').value.trim(),
+        category: document.getElementById('category').value,
+        provider: document.getElementById('provider').value.trim() || 'Anonymous volunteer',
+        credentials: document.getElementById('credentials').value.trim(),
+        limitations: document.getElementById('limitations').value.trim(),
+        availability: document.getElementById('availability').value.trim(),
+        location: document.getElementById('location').value.trim(),
+        contact: document.getElementById('contact').value.trim(),
+        posted: new Date().toISOString()
+      };
+      if (!skill.skill || !skill.category || !skill.contact) {
+        alert("Please fill required fields: skill, category, and contact");
+        return;
+      }
+      let skills = JSON.parse(localStorage.getItem('banaVagSkills') || '[]');
+      skills.push(skill);
+      localStorage.setItem('banaVagSkills', JSON.stringify(skills));
+      renderSkills();
+      // Clear form
+      document.querySelectorAll('input, textarea, select').forEach(el => {
+        if (el.id !== 'category') el.value = '';
+      });
+      document.getElementById('category').value = '';
     }
-  };
 
-  const filteredSkills = skills.filter(s => {
-    const matchesCategory = filter === 'all' || s.category === filter;
-    const matchesSearch = !searchTerm || 
-      s.skill.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      s.provider.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 p-4">
-      <div className="max-w-6xl mx-auto">
-        <header className="bg-white rounded-lg shadow-md p-6 mb-6">
-          <h1 className="text-3xl font-bold text-indigo-900 mb-2">Community Skills & Services</h1>
-          <p className="text-gray-600">Connecting professional skills with community needs</p>
-        </header>
-
-        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6 rounded">
-          <div className="flex items-start">
-            <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5 mr-2 flex-shrink-0" />
-            <div className="text-sm text-yellow-800">
-              <strong>Important:</strong> All services are voluntary offerings, not institutional commitments. 
-              Always verify credentials independently and understand limitations before engaging services.
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-          <div className="flex flex-col sm:flex-row gap-4 mb-4">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search skills or providers..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-              />
-            </div>
-            <select
-              value={filter}
-              onChange={(e) => setFilter(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-            >
-              <option value="all">All Categories</option>
-              {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
-            </select>
-            <button
-              onClick={() => setShowForm(!showForm)}
-              className="flex items-center gap-2 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
-            >
-              <Plus className="w-5 h-5" />
-              Offer Skill
-            </button>
-          </div>
-
-          {showForm && <SkillForm onSubmit={addSkill} onCancel={() => setShowForm(false)} categories={categories} />}
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-2">
-          {filteredSkills.length === 0 ? (
-            <div className="col-span-2 text-center py-12 text-gray-500">
-              No skills found. Be the first to offer your expertise!
-            </div>
-          ) : (
-            filteredSkills.map(skill => (
-              <SkillCard key={skill.id} skill={skill} onRemove={removeSkill} />
-            ))
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function SkillForm({ onSubmit, onCancel, categories }) {
-  const [form, setForm] = useState({
-    skill: '',
-    category: '',
-    provider: '',
-    credentials: '',
-    availability: '',
-    limitations: '',
-    location: '',
-    contact: ''
-  });
-
-  const handleSubmit = () => {
-    if (!form.skill || !form.category || !form.provider || !form.contact) {
-      alert('Please fill in required fields');
-      return;
+    function removeSkill(id) {
+      if (!confirm('Remove this offering?')) return;
+      let skills = JSON.parse(localStorage.getItem('banaVagSkills') || '[]');
+      skills = skills.filter(s => s.id !== id);
+      localStorage.setItem('banaVagSkills', JSON.stringify(skills));
+      renderSkills();
     }
-    onSubmit(form);
-  };
 
-  return (
-    <div className="bg-gray-50 p-6 rounded-lg mb-4 space-y-4">
-      <div className="grid md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Skill/Service Offered *
-          </label>
-          <input
-            type="text"
-            placeholder="e.g., Legal consultation, Free haircuts"
-            value={form.skill}
-            onChange={(e) => setForm({...form, skill: e.target.value})}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Category *
-          </label>
-          <select
-            value={form.category}
-            onChange={(e) => setForm({...form, category: e.target.value})}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-          >
-            <option value="">Select category</option>
-            {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
-          </select>
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Provider Name/Organization *
-          </label>
-          <input
-            type="text"
-            placeholder="Your name or organization"
-            value={form.provider}
-            onChange={(e) => setForm({...form, provider: e.target.value})}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Credentials/Qualifications
-          </label>
-          <input
-            type="text"
-            placeholder="e.g., Licensed attorney (SE), Certified barber"
-            value={form.credentials}
-            onChange={(e) => setForm({...form, credentials: e.target.value})}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Availability
-          </label>
-          <input
-            type="text"
-            placeholder="e.g., Tuesdays 18:00-20:00"
-            value={form.availability}
-            onChange={(e) => setForm({...form, availability: e.target.value})}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Location
-          </label>
-          <input
-            type="text"
-            placeholder="e.g., Stockholm centrum"
-            value={form.location}
-            onChange={(e) => setForm({...form, location: e.target.value})}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-          />
-        </div>
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Important Limitations
-        </label>
-        <textarea
-          placeholder="e.g., No court representation, consultation only"
-          value={form.limitations}
-          onChange={(e) => setForm({...form, limitations: e.target.value})}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-          rows="2"
-        />
-      </div>
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Contact Information *
-        </label>
-        <input
-          type="text"
-          placeholder="Email or phone"
-          value={form.contact}
-          onChange={(e) => setForm({...form, contact: e.target.value})}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
-        />
-      </div>
-      <div className="flex gap-2">
-        <button
-          onClick={handleSubmit}
-          className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
-        >
-          Post Skill Offering
-        </button>
-        <button
-          onClick={onCancel}
-          className="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors"
-        >
-          Cancel
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function SkillCard({ skill, onRemove }) {
-  return (
-    <div className="bg-white rounded-lg shadow-md p-5 hover:shadow-lg transition-shadow">
-      <div className="flex justify-between items-start mb-3">
-        <div className="flex-1">
-          <h3 className="text-lg font-semibold text-gray-900 mb-1">{skill.skill}</h3>
-          <span className="inline-block px-3 py-1 bg-indigo-100 text-indigo-800 text-sm rounded-full">
-            {skill.category}
-          </span>
-        </div>
-        <button
-          onClick={() => onRemove(skill.id)}
-          className="text-gray-400 hover:text-red-500 transition-colors"
-        >
-          <X className="w-5 h-5" />
-        </button>
-      </div>
-
-      <div className="space-y-2 text-sm">
-        <div className="flex items-start gap-2">
-          <Award className="w-4 h-4 text-gray-500 mt-0.5 flex-shrink-0" />
-          <div>
-            <strong className="text-gray-700">{skill.provider}</strong>
-            {skill.credentials && (
-              <p className="text-gray-600">{skill.credentials}</p>
-            )}
+    function renderSkills() {
+      const grid = document.getElementById('skills-grid');
+      const empty = document.getElementById('empty');
+      let skills = JSON.parse(localStorage.getItem('banaVagSkills') || '[]');
+      if (skills.length === 0) {
+        grid.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+      skills = skills.sort((a, b) => b.id - a.id);
+      grid.innerHTML = skills.map(s => `
+        <div class="card">
+          <div class="actions">
+            <button onclick="removeSkill(${s.id})">Remove</button>
           </div>
+          <h3>${s.skill}</h3>
+          <span class="category">${s.category}</span>
+          <p><strong>${s.provider}</strong></p>
+          ${s.credentials ? `<p><em>Credentials: ${s.credentials}</em></p>` : ''}
+          ${s.availability ? `<p><strong>Availability:</strong> ${s.availability}</p>` : ''}
+          ${s.location ? `<p><strong>Location:</strong> ${s.location}</p>` : ''}
+          ${s.limitations ? `<div class="limitations"><strong>Limitations:</strong> ${s.limitations}</div>` : ''}
+          <p><strong>Contact:</strong> ${s.contact}</p>
+          <p style="font-size:0.8rem;color:#64748b;margin-top:1rem;">Posted: ${new Date(s.posted).toLocaleDateString()}</p>
         </div>
+      `).join('');
+    }
 
-        {skill.availability && (
-          <div className="flex items-start gap-2">
-            <Calendar className="w-4 h-4 text-gray-500 mt-0.5 flex-shrink-0" />
-            <span className="text-gray-600">{skill.availability}</span>
-          </div>
-        )}
-
-        {skill.location && (
-          <div className="flex items-start gap-2">
-            <MapPin className="w-4 h-4 text-gray-500 mt-0.5 flex-shrink-0" />
-            <span className="text-gray-600">{skill.location}</span>
-          </div>
-        )}
-
-        {skill.limitations && (
-          <div className="bg-yellow-50 border-l-2 border-yellow-400 p-2 mt-2">
-            <p className="text-xs text-yellow-800">
-              <strong>Limitations:</strong> {skill.limitations}
-            </p>
-          </div>
-        )}
-
-        <div className="pt-2 mt-2 border-t border-gray-200">
-          <p className="text-xs text-gray-500">Contact: {skill.contact}</p>
-          <p className="text-xs text-gray-400">Posted: {new Date(skill.posted).toLocaleDateString()}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
+    renderSkills();
+  </script>
+</body>
+</html>
