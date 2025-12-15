@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bana Väg – Skill Sharing Registry</title>
+  <style>
+    body { font-family: system-ui; max-width: 900px; margin: 2rem auto; padding: 1rem; background: #f0f9ff; }
+    .card { background: white; padding: 1rem; margin: 1rem 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .warning { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 1rem; margin: 1rem 0; }
+    select, input, textarea { width: 100%; padding: 0.5rem; margin: 0.5rem 0; border: 1px solid #ccc; border-radius: 6px; }
+    button { padding: 0.5rem 1rem; background: #1d4ed8; color: white; border: none; border-radius: 6px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Community Skill Sharing Registry</h1>
+  <div class="warning">
+    <strong>Important:</strong> All services are voluntary. Always independently verify credentials. 
+    No liability is assumed by any participating community.
+  </div>
+
+  <div class="card">
+    <h2>Offer a Skill</h2>
+    <input id="skill" placeholder="Skill (e.g. Legal consultation, Dental check)">
+    <select id="category">
+      <option>Legal</option><option>Medical/Dental</option><option>Personal Care</option>
+      <option>Education</option><option>Technical</option><option>Other</option>
+    </select>
+    <input id="credentials" placeholder="Credentials (optional but recommended)">
+    <textarea id="limits" placeholder="Limitations (e.g. consultation only, no representation)"></textarea>
+    <input id="availability" placeholder="Availability (e.g. Thursdays 18-20)">
+    <input id="contact" placeholder="Contact method">
+    <button onclick="addSkill()">Post Offering</button>
+  </div>
+
+  <h2>Available Skills</h2>
+  <div id="list"></div>
+
+  <script>
+    function addSkill() {
+      const skill = {
+        id: Date.now(),
+        skill: document.getElementById('skill').value,
+        category: document.getElementById('category').value,
+        credentials: document.getElementById('credentials').value,
+        limits: document.getElementById('limits').value,
+        availability: document.getElementById('availability').value,
+        contact: document.getElementById('contact').value,
+        posted: new Date().toISOString()
+      };
+      if (!skill.skill || !skill.contact) return alert("Skill and contact required");
+      let list = JSON.parse(localStorage.getItem('skillsList') || '[]');
+      list.push(skill);
+      localStorage.setItem('skillsList', JSON.stringify(list));
+      render();
+    }
+
+    function render() {
+      const container = document.getElementById('list');
+      const list = JSON.parse(localStorage.getItem('skillsList') || '[]');
+      container.innerHTML = list
+        .sort((a,b) => b.id - a.id)
+        .map(s => `
+          <div class="card">
+            <strong>${s.skill}</strong> (${s.category})<br>
+            ${s.credentials ? `<em>Credentials: ${s.credentials}</em><br>` : ''}
+            Availability: ${s.availability}<br>
+            ${s.limits ? `<strong style="color:#dc2626">Limitations: ${s.limits}</strong><br>` : ''}
+            Contact: ${s.contact}<br>
+            <small>Posted: ${new Date(s.posted).toLocaleDateString()}</small>
+          </div>
+        `).join('');
+    }
+
+    render();
+  </script>
+</body>
+</html>
