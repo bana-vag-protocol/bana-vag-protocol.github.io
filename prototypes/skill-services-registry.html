@@ -1,0 +1,313 @@
+import React, { useState, useEffect } from 'react';
+import { Search, Plus, X, Calendar, MapPin, Award, AlertCircle } from 'lucide-react';
+
+export default function SkillsRegistry() {
+  const [skills, setSkills] = useState([]);
+  const [filter, setFilter] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showForm, setShowForm] = useState(false);
+
+  const categories = [
+    'Legal Services',
+    'Medical/Dental',
+    'Personal Care',
+    'Education/Tutoring',
+    'Financial Guidance',
+    'Language Services',
+    'Technical Skills',
+    'Other'
+  ];
+
+  useEffect(() => {
+    const stored = localStorage.getItem('banaVagSkills');
+    if (stored) setSkills(JSON.parse(stored));
+  }, []);
+
+  const saveSkills = (updated) => {
+    setSkills(updated);
+    localStorage.setItem('banaVagSkills', JSON.stringify(updated));
+  };
+
+  const addSkill = (skill) => {
+    saveSkills([...skills, { ...skill, id: Date.now(), posted: new Date().toISOString() }]);
+    setShowForm(false);
+  };
+
+  const removeSkill = (id) => {
+    if (confirm('Remove this skill offering?')) {
+      saveSkills(skills.filter(s => s.id !== id));
+    }
+  };
+
+  const filteredSkills = skills.filter(s => {
+    const matchesCategory = filter === 'all' || s.category === filter;
+    const matchesSearch = !searchTerm || 
+      s.skill.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      s.provider.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 p-4">
+      <div className="max-w-6xl mx-auto">
+        <header className="bg-white rounded-lg shadow-md p-6 mb-6">
+          <h1 className="text-3xl font-bold text-indigo-900 mb-2">Community Skills & Services</h1>
+          <p className="text-gray-600">Connecting professional skills with community needs</p>
+        </header>
+
+        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6 rounded">
+          <div className="flex items-start">
+            <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5 mr-2 flex-shrink-0" />
+            <div className="text-sm text-yellow-800">
+              <strong>Important:</strong> All services are voluntary offerings, not institutional commitments. 
+              Always verify credentials independently and understand limitations before engaging services.
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+          <div className="flex flex-col sm:flex-row gap-4 mb-4">
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search skills or providers..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              />
+            </div>
+            <select
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+            >
+              <option value="all">All Categories</option>
+              {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+            </select>
+            <button
+              onClick={() => setShowForm(!showForm)}
+              className="flex items-center gap-2 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+            >
+              <Plus className="w-5 h-5" />
+              Offer Skill
+            </button>
+          </div>
+
+          {showForm && <SkillForm onSubmit={addSkill} onCancel={() => setShowForm(false)} categories={categories} />}
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2">
+          {filteredSkills.length === 0 ? (
+            <div className="col-span-2 text-center py-12 text-gray-500">
+              No skills found. Be the first to offer your expertise!
+            </div>
+          ) : (
+            filteredSkills.map(skill => (
+              <SkillCard key={skill.id} skill={skill} onRemove={removeSkill} />
+            ))
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SkillForm({ onSubmit, onCancel, categories }) {
+  const [form, setForm] = useState({
+    skill: '',
+    category: '',
+    provider: '',
+    credentials: '',
+    availability: '',
+    limitations: '',
+    location: '',
+    contact: ''
+  });
+
+  const handleSubmit = () => {
+    if (!form.skill || !form.category || !form.provider || !form.contact) {
+      alert('Please fill in required fields');
+      return;
+    }
+    onSubmit(form);
+  };
+
+  return (
+    <div className="bg-gray-50 p-6 rounded-lg mb-4 space-y-4">
+      <div className="grid md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Skill/Service Offered *
+          </label>
+          <input
+            type="text"
+            placeholder="e.g., Legal consultation, Free haircuts"
+            value={form.skill}
+            onChange={(e) => setForm({...form, skill: e.target.value})}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Category *
+          </label>
+          <select
+            value={form.category}
+            onChange={(e) => setForm({...form, category: e.target.value})}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+          >
+            <option value="">Select category</option>
+            {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+          </select>
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Provider Name/Organization *
+          </label>
+          <input
+            type="text"
+            placeholder="Your name or organization"
+            value={form.provider}
+            onChange={(e) => setForm({...form, provider: e.target.value})}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Credentials/Qualifications
+          </label>
+          <input
+            type="text"
+            placeholder="e.g., Licensed attorney (SE), Certified barber"
+            value={form.credentials}
+            onChange={(e) => setForm({...form, credentials: e.target.value})}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Availability
+          </label>
+          <input
+            type="text"
+            placeholder="e.g., Tuesdays 18:00-20:00"
+            value={form.availability}
+            onChange={(e) => setForm({...form, availability: e.target.value})}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Location
+          </label>
+          <input
+            type="text"
+            placeholder="e.g., Stockholm centrum"
+            value={form.location}
+            onChange={(e) => setForm({...form, location: e.target.value})}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+          />
+        </div>
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Important Limitations
+        </label>
+        <textarea
+          placeholder="e.g., No court representation, consultation only"
+          value={form.limitations}
+          onChange={(e) => setForm({...form, limitations: e.target.value})}
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+          rows="2"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Contact Information *
+        </label>
+        <input
+          type="text"
+          placeholder="Email or phone"
+          value={form.contact}
+          onChange={(e) => setForm({...form, contact: e.target.value})}
+          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+        />
+      </div>
+      <div className="flex gap-2">
+        <button
+          onClick={handleSubmit}
+          className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+        >
+          Post Skill Offering
+        </button>
+        <button
+          onClick={onCancel}
+          className="px-6 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function SkillCard({ skill, onRemove }) {
+  return (
+    <div className="bg-white rounded-lg shadow-md p-5 hover:shadow-lg transition-shadow">
+      <div className="flex justify-between items-start mb-3">
+        <div className="flex-1">
+          <h3 className="text-lg font-semibold text-gray-900 mb-1">{skill.skill}</h3>
+          <span className="inline-block px-3 py-1 bg-indigo-100 text-indigo-800 text-sm rounded-full">
+            {skill.category}
+          </span>
+        </div>
+        <button
+          onClick={() => onRemove(skill.id)}
+          className="text-gray-400 hover:text-red-500 transition-colors"
+        >
+          <X className="w-5 h-5" />
+        </button>
+      </div>
+
+      <div className="space-y-2 text-sm">
+        <div className="flex items-start gap-2">
+          <Award className="w-4 h-4 text-gray-500 mt-0.5 flex-shrink-0" />
+          <div>
+            <strong className="text-gray-700">{skill.provider}</strong>
+            {skill.credentials && (
+              <p className="text-gray-600">{skill.credentials}</p>
+            )}
+          </div>
+        </div>
+
+        {skill.availability && (
+          <div className="flex items-start gap-2">
+            <Calendar className="w-4 h-4 text-gray-500 mt-0.5 flex-shrink-0" />
+            <span className="text-gray-600">{skill.availability}</span>
+          </div>
+        )}
+
+        {skill.location && (
+          <div className="flex items-start gap-2">
+            <MapPin className="w-4 h-4 text-gray-500 mt-0.5 flex-shrink-0" />
+            <span className="text-gray-600">{skill.location}</span>
+          </div>
+        )}
+
+        {skill.limitations && (
+          <div className="bg-yellow-50 border-l-2 border-yellow-400 p-2 mt-2">
+            <p className="text-xs text-yellow-800">
+              <strong>Limitations:</strong> {skill.limitations}
+            </p>
+          </div>
+        )}
+
+        <div className="pt-2 mt-2 border-t border-gray-200">
+          <p className="text-xs text-gray-500">Contact: {skill.contact}</p>
+          <p className="text-xs text-gray-400">Posted: {new Date(skill.posted).toLocaleDateString()}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
