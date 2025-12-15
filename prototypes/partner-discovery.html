@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bana Väg – Find Potential Partners</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 2rem auto; padding: 1rem; }
+    .profile { border: 1px solid #ccc; padding: 1rem; margin: 1rem 0; border-radius: 8px; }
+    .openness { font-weight: bold; color: #d4a017; }
+    input, select, button { margin: 0.5rem 0; padding: 0.5rem; width: 100%; }
+  </style>
+</head>
+<body>
+  <h1>Bana Väg – Partner Discovery (Prototype)</h1>
+  <p>Find communities open to Phase 1 charitable coordination. No login required.</p>
+
+  <h2>Create Your Profile (Optional)</h2>
+  <input type="text" id="name" placeholder="Community or Individual Name (e.g. St. Mark's Parish)">
+  <input type="text" id="location" placeholder="City/Region">
+  <select id="tradition">
+    <option value="">Tradition (optional)</option>
+    <option>Church of Sweden</option>
+    <option>Islamic Association</option>
+    <option>Jewish Congregation</option>
+    <option>Catholic</option>
+    <option>Secular/Non-religious</option>
+    <option>Other</option>
+  </select>
+  <select id="focus" multiple size="5">
+    <option>Food rescue/distribution</option>
+    <option>Clothing/hygiene drives</option>
+    <option>Skill sharing (legal, medical, education)</option>
+    <option>Seasonal support (Christmas, Ramadan, etc.)</option>
+    <option>Financial grant navigation</option>
+    <option>Migrant/refugee support</option>
+  </select>
+  <p>Openness to interfaith cooperation:</p>
+  <select id="openness">
+    <option value="1">1 – Curious only</option>
+    <option value="2">2 – Open to conversation</option>
+    <option value="3">3 – Ready for Phase 1 exploration</option>
+    <option value="4">4 – Actively seeking partners</option>
+    <option value="5">5 – Already coordinating</option>
+  </select>
+  <button onclick="saveProfile()">Publish Profile (Locally Stored)</button>
+
+  <h2>Available Partners</h2>
+  <div id="profiles"></div>
+
+  <script>
+    function saveProfile() {
+      const profile = {
+        name: document.getElementById('name').value || 'Anonymous',
+        location: document.getElementById('location').value,
+        tradition: document.getElementById('tradition').value,
+        focus: Array.from(document.getElementById('focus').selectedOptions).map(o => o.value),
+        openness: document.getElementById('openness').value,
+        timestamp: new Date().toISOString()
+      };
+      let profiles = JSON.parse(localStorage.getItem('banaVagProfiles') || '[]');
+      profiles.push(profile);
+      localStorage.setItem('banaVagProfiles', JSON.stringify(profiles));
+      loadProfiles();
+    }
+
+    function loadProfiles() {
+      const container = document.getElementById('profiles');
+      const profiles = JSON.parse(localStorage.getItem('banaVagProfiles') || '[]');
+      container.innerHTML = profiles.length === 0 
+        ? '<p>No profiles yet. Be the first!</p>'
+        : profiles.reverse().map(p => `
+          <div class="profile">
+            <strong>${p.name}</strong> – ${p.location || 'Location not shared'}<br>
+            Tradition: ${p.tradition || 'Not specified'}<br>
+            Focus: ${p.focus.join(', ') || 'None listed'}<br>
+            <span class="openness">Openness Level: ${p.openness}/5</span><br>
+            <small>Added: ${new Date(p.timestamp).toLocaleDateString()}</small>
+          </div>
+        `).join('');
+    }
+
+    loadProfiles();
+  </script>
+  <p><small>This prototype uses browser localStorage only. Future versions could use decentralized storage (IPFS) or permissioned blockchain.</small></p>
+</body>
+</html>
