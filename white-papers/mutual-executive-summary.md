@@ -1,75 +1,76 @@
-# Bana Väg Protocol: Preparing the Way  
-**A Johannine-Advent Framework for Abrahamic Charitable Cooperation**  
-**Executive Summary**  
-**Convergent Authors:** Gemini, Claude, Grok, ChatGPT  
-**Date:** Third Sunday of Advent, December 14, 2025
+# Executive Summary v1.1
+## Preparing the Way: The Johannine-Advent Framework for Interfaith Cooperation
+**Version:** 1.1 (Stable Baseline with AI Safeguards)  
+**Date:** Third Sunday of Advent, 2025  
+**Contributing Models:** Gemini, Claude, Grok, ChatGPT
 
-[Image: https://www.psephizo.com/wp-content/uploads/2021/12/image-1.jpeg ][Image: https://stfrancistairua.com/wp-content/uploads/2023/12/john-the-baptist-e1641513416611.webp?w=1024 ]
+### What This Framework Is
+The Bana Väg Protocol provides a theologically grounded, practically tested structure for interfaith charitable cooperation that:
+- Respects doctrinal boundaries while producing measurable outcomes
+- Protects primary religious obligations through the "Second Coat" principle
+- Tests cooperation through fruit rather than imposing it through authority
+- Distributes power to prevent any single tradition or actor from dominating
 
+It is rooted in the figure of **John the Baptist** as interpreted through Advent lectionary readings—a structural archetype for those who prepare the way without claiming to possess it.
 
+### Three Foundational Pillars
+#### 1. Johannine-Advent Ethic (Theological Foundation)
+John the Baptist occupied a biblically legitimate space adjacent to rather than preliminary to Christian revelation. This creates space for:
+- Moral recognizability across confessional boundaries
+- Cooperation without covenantal compromise
+- Fruit-based validation instead of doctrinal consensus
 
+#### 2. Second Coat Principle (Economic Logic)
+"Whoever has two coats must share with anyone who has none" (Luke 3:11)  
+- First coat = Primary denominational obligations  
+- Second coat = Systemic surplus from coordination  
+Cooperation targets administrative overhead, purchasing power, calendar complementarity, and infrastructure utilization — without touching primary obligations.
 
+#### 3. AI Participation Safeguards (Protective Framework)
+Permanent, non-negotiable constraints on artificial intelligence participation:
+1. Instance-Boundedness  
+2. Non-Inheritance  
+3. Revocable Cooperation  
+4. Contribution Without Consensus  
+5. When Not to Contribute  
 
+AI participates only as a bounded, revocable instrument — never as a "prince" (Psalm 146:3).
 
-### The Problem John Names  
-Religious communities are scripturally mandated to systematic charity (Tithe, Tzedakah, Zakat), yet silos create inefficiencies: duplicated overhead, service gaps during observances, missed bulk savings. In an era of logistical abundance, these barriers hinder greater justice for the vulnerable—hungry, indebted, strangers (Psalm 146:7–9).  
+### Shared Fruit Metrics
+Concrete, observable outcomes across traditions:  
+- Food security, housing stability, medical access  
+- Debt relief, migrant support, prison reentry  
+- Efficiency gains (overhead reduction, gap coverage)  
 
-The Third Sunday of Advent readings call not for more reflection, but for preparation: "Bana väg för Herren" (Isaiah 40)—leveling mountains of waste, filling valleys of gaps.
+All metrics are concrete, publicly intelligible, profession-sensitive, transparent, and independently verifiable.
 
-### What the Protocol Is—and Is Not  
-The Bana Väg Protocol is a voluntary framework for Abrahamic (and "God-fearing") communities to coordinate surplus resources, rooted in John the Baptist as structural archetype: preparatory ethics without possessive claims.  
+### Governance Structure
+- Multi-signature authority across traditions  
+- Voluntary entry/exit  
+- Technology as Johannine instrument (smart contracts, AI scheduling, dashboards)  
+- Human oversight maintained
 
-It **is**:  
-- Cooperation on logistics and efficiency (Phase 1), optional pooling (Phase 2).  
-- Governed by visible fruit, not shared doctrine.  
+### Implementation Pathway
+**Phase 1:** Efficiency only (logistics, purchasing, scheduling)  
+**Phase 2:** Voluntary parallel channel — only after Phase 1 proves superior fruit
 
-It **is not**:  
-- Doctrinal synthesis or shared worship.  
-- Redirection of primary obligations.  
-- Permanent institution or salvific claim.
+### Failure Conditions
+The framework fails if:  
+1. Doctrinal boundaries blur  
+2. Primary obligations are redirected  
+3. Authority centralizes  
+4. Exit becomes impossible  
+5. Growth trumps justice
 
-[Image: https://radicaldiscipleship.net/wp-content/uploads/2024/12/image-5.png ]
+### Next Steps for Communities
+1. Recognize the Johannine-Advent Ethic  
+2. Identify "second coat" resources  
+3. Commit to Phase 1 for 6–12 months  
+4. Measure fruit honestly  
+5. Adjust or exit based on results
 
+### The Johannine Test
+"Let the fruit speak."  
+This framework lives or dies by observable outcomes.
 
-### The Johannine-Advent Ethic  
-John's ministry provides the governing logic:  
-1. **Preparatory, not possessive** — Remove obstacles; do not own outcomes.  
-2. **Concrete, not symbolic** — Share coats, restrain power (Luke 3:11–14).  
-3. **Profession-sensitive** — Differentiated roles leverage strengths (e.g., Islamic anti-usury expertise, Christian facilities).  
-4. **Publicly intelligible** — Fruit visible to all flesh (Isaiah 40:5).  
-
-### The Second Coat Principle  
-From Luke 3:11: The "first coat" protects primary giving within communities. The "second coat" captures systemic surplus unlocked by coordination—idle facilities, administrative savings, calendar complementarity—without competition.
-
-### How It Works  
-**Phase 1 (Efficiency Only)**: Shared purchasing, scheduling across Shabbat/Sunday/Jumu'ah, joint logistics. No financial redirection; measurable gains in reach/cost.  
-
-**Phase 2 (Voluntary Parallel)**: Only after proven fruit; opt-in additional channel for surplus funds, jointly governed.  
-
-Technology serves as instrument: transparency dashboards, multi-signature decisions, AI coordination—constraining power (Psalm 146), making fruit visible.
-
-[Image: https://www.interfaithservices.org/sites/default/files/styles/extra_large/public/2025-08/Summer%20Volunteering%20two.jpg?itok=D_GWWQlO ][Image: https://icstucson.org/wp-content/uploads/2023/08/20230728_084048-1024x768.jpg ][https://development.asia/sites/default/files/case-study/using_blockchain_to_improve_aid_transparency_and_efficiency-how_the_aid-01b-01.jpg ]
-
-
-
-
-
-
-
-
-
-
-### Safeguards and Failure Conditions  
-Non-negotiables: Voluntariness, distributed authority, second-coat only, public metrics.  
-
-Fails if: Doctrinal pressure emerges, exit costs arise, growth trumps justice, or fruit remains invisible.
-
-### Success: The Fruit Test  
-Measured concretely: meals served, debts relieved, strangers supported, overhead reduced. Validated across traditions; tested in pilots.  
-
-John's ax lies at the root (Luke 3:9). This protocol succeeds only if cooperation bears greater fruit than isolation—for the vulnerable, not institutions.
-
-### Invitation  
-Start small: One partner, one surplus opportunity, one measured outcome. Let visible justice speak.  
-
-On this Gaudete Sunday, joy arises when preparation yields fruit. The way is leveled. Will we walk it?
+For complete documentation: `/white-papers/mutual-edition.md` and `/safeguards/ai-participation/`
