@@ -1,347 +1,337 @@
-# Phase 1 Pilot Agreement Template
-*Bana Väg Protocol*
+# Phase 1 Pilot Agreement Template v1.1
+## Bana Väg Protocol - Efficiency-Focused Interfaith Cooperation
 
-This template provides a structured framework for communities entering a Phase 1 pilot under the Bana Väg Protocol. It is designed to be adapted to local contexts while maintaining theological integrity and clear boundaries.
-
----
-
-## Purpose of This Document
-
-This template helps participating communities:
-1. Clearly define the scope and limitations of their collaboration
-2. Establish measurable success criteria
-3. Protect primary obligations and identities
-4. Enable consequence-free exit
-5. Ensure transparent accountability
-
-**This is not a legal contract** but a shared commitment document that can be adapted to meet local legal and institutional requirements.
+**Template Version:** 1.1 (Baseline-Aligned)  
+**Last Updated:** December 2025  
+**Purpose:** Standardized agreement for Phase 1 pilots (efficiency only, no financial redirection)
 
 ---
 
 ## Section 1: Participating Communities
 
-### 1.1 Community Identification
+**Lead Community:**  
+- Name: _______________
+- Tradition: _______________
+- Primary Contact: _______________
+- "Second Coat" Resource Contributed: _______________
 
-**Community A:**
-- Name and tradition:
-- Primary contact:
-- Governing body providing approval:
+**Partner Community 1:**  
+- Name: _______________
+- Tradition: _______________
+- Primary Contact: _______________
+- "Second Coat" Resource Contributed: _______________
 
-**Community B:**
-- Name and tradition:
-- Primary contact:
-- Governing body providing approval:
+**Partner Community 2 (if applicable):**  
+- Name: _______________
+- Tradition: _______________
+- Primary Contact: _______________
+- "Second Coat" Resource Contributed: _______________
 
-[Add additional communities as needed]
-
-### 1.2 Shared Understanding
-
-All participating communities affirm:
-- Recognition of the Johannine-Advent Ethic as the governing framework
-- Commitment to the Second Coat Principle (no redirection of primary obligations)
-- Acceptance of voluntariness and consequence-free exit
-- Agreement that fruit metrics are the sole validation criterion
-
----
-
-## Section 2: Pilot Scope and Boundaries
-
-### 2.1 What This Pilot Includes (Check all that apply)
-
-- [ ] **Joint purchasing** of supplies for separate distribution
-- [ ] **Coordinated scheduling** across religious observances (Shabbat/Sunday/Jumu'ah)
-- [ ] **Shared facilities** for charitable operations (specify):
-- [ ] **Shared logistics** (warehousing, transportation, bulk ordering)
-- [ ] **Coordinated volunteer scheduling** across communities
-- [ ] **Shared administrative tools** (databases, scheduling software)
-- [ ] Other (specify):
-
-### 2.2 What This Pilot Explicitly Excludes
-
-- ❌ Any redirection of primary Tithe/Zakat/Tzedakah obligations
-- ❌ Shared worship or theological teaching
-- ❌ Evangelism or conversion activities
-- ❌ Pooling of financial resources (reserved for Phase 2 only)
-- ❌ Permanent institutional structures
-- ❌ Any requirement that continues beyond pilot termination
-
-### 2.3 Protected Boundaries
-
-Each participating community retains complete autonomy over:
-- Worship practices and theological teaching
-- Pastoral care and spiritual guidance
-- Primary financial obligations and their direction
-- Denominational identity and membership criteria
-- Internal governance and decision-making
-- Choice to continue, modify, or exit the pilot
+**Secular/Technical Partners (if applicable):**  
+- Organization: _______________
+- Expertise Contributed: _______________
+- Primary Contact: _______________
 
 ---
 
-## Section 3: Pilot Duration and Structure
+## Section 2: Theological Alignment Confirmation
 
-### 3.1 Timeline
+Each participating community affirms:
 
-**Start Date:**
-**Planned Duration:** [6-12 months recommended]
-**Review Points:** [Monthly measurement, quarterly assessment recommended]
-**End Date or Review Date:**
-
-### 3.2 Governance Structure
-
-**Decision-Making:**
-- Decisions affecting shared resources require consensus of [specify: all communities / designated representatives]
-- Day-to-day operational decisions delegated to [specify role/person]
-- Dispute resolution process: [specify process]
-
-**Meeting Cadence:**
-- Operational coordination: [Weekly/Biweekly recommended]
-- Leadership review: [Monthly recommended]
-- Full community reporting: [Quarterly recommended]
+- [ ] We recognize John the Baptist as a structural archetype for preparatory cooperation
+- [ ] We accept the Johannine-Advent Ethic as biblically/scripturally warranted
+- [ ] We understand this pilot does NOT require:
+  - Shared worship
+  - Doctrinal convergence
+  - Redirection of primary obligations (Tithe/Zakat/Tzedakah)
+- [ ] We commit to fruit-based assessment over institutional growth
+- [ ] We are prepared to exit gracefully if fruit does not materialize
 
 ---
 
-## Section 4: Success Metrics and Measurement
+## Section 3: Pilot Scope Definition
 
-### 4.1 Primary Success Metrics
+**Pilot Type:** (Select one)
+- [ ] Food Security Coordination
+- [ ] Interest-Free Debt Relief
+- [ ] Migrant Legal Support
+- [ ] Other: _______________
 
-Each pilot must define at least 3-5 concrete metrics from the following categories:
+**Specific "Second Coat" Opportunity:**  
+(Describe in 2-3 sentences what surplus capacity will be coordinated)
 
-**Efficiency Metrics:**
-- [ ] Percentage reduction in administrative costs
-- [ ] Percentage increase in purchasing power through bulk coordination
-- [ ] Hours of service coverage added through calendar coordination
-- [ ] Reduction in duplicate overhead (specify):
+_______________________________________________________________
+_______________________________________________________________
+_______________________________________________________________
 
-**Impact Metrics:**
-- [ ] Number of meals served (increase from baseline)
-- [ ] Number of households assisted (increase from baseline)
-- [ ] Service hours available (increase from baseline)
-- [ ] Geographic coverage expanded (if applicable)
-
-**Our Specific Metrics:**
-1. [Metric]: [Baseline] → [Target]
-2. [Metric]: [Baseline] → [Target]
-3. [Metric]: [Baseline] → [Target]
-4. [Metric]: [Baseline] → [Target]
-5. [Metric]: [Baseline] → [Target]
-
-### 4.2 Measurement Process
-
-**Data Collection:**
-- Responsibility: [Specify who collects/reports]
-- Frequency: [Monthly recommended]
-- Method: [Specify tools/process]
-
-**Verification:**
-- Independent review by: [Representatives from each community]
-- Frequency: [Quarterly recommended]
-
-**Transparency:**
-- Results shared with: [All participating communities, leadership, members]
-- Format: [Dashboard, written report, presentation]
-
-### 4.3 Success Threshold for Phase 2 Consideration
-
-This pilot will be considered successful if:
-- [ ] At least [2-3] primary metrics meet or exceed targets
-- [ ] No compromise of primary obligations or identity occurred
-- [ ] All participating communities remain satisfied with process
-- [ ] Cost-benefit analysis shows clear advantage over isolated operation
-- [ ] All communities agree fruit is visible and validates cooperation
-
-**Only if all these conditions are met** will Phase 2 be considered.
+**What This Pilot Does NOT Include:**
+- No redirection of primary denominational giving
+- No shared worship or theological instruction
+- No evangelism or conversion efforts
+- No permanent institutional structure
 
 ---
 
-## Section 5: Resource Contributions
+## Section 4: Profession-Sensitive Role Assignment
 
-### 5.1 Tangible Resources
+Following Luke 3:10-14, different participants contribute from strength:
 
-**Community A Contributes:**
-- Facilities: [Specify what, when, how]
-- Equipment: [Specify]
-- Supplies: [Specify]
-- Other:
+| Community/Partner | Primary Role | Specific Contribution |
+|------------------|--------------|----------------------|
+| _______________ | Lead Coordinator | _______________ |
+| _______________ | Facilities Provider | _______________ |
+| _______________ | Technical Expertise | _______________ |
+| _______________ | Client Services | _______________ |
 
-**Community B Contributes:**
-- Facilities: [Specify what, when, how]
-- Equipment: [Specify]
-- Supplies: [Specify]
-- Other:
-
-### 5.2 Human Resources
-
-**Volunteer Coordination:**
-- Each community commits to: [Specify volunteer hours/roles]
-- Coordination managed by: [Specify]
-- Scheduling tool: [Specify]
-
-**Professional Services:**
-- [Legal, accounting, technical]: [Specify who provides what]
-
-### 5.3 Financial Arrangements (Phase 1 Only)
-
-**Cost Sharing for Shared Expenses:**
-- Joint purchasing costs split: [Specify formula: equally, proportionally, etc.]
-- Shared facility costs: [Specify]
-- Shared technology/tools: [Specify]
-
-**Financial Tracking:**
-- Method: [Specify transparent accounting process]
-- Reporting: [Monthly recommended]
-- Audit: [Independent review quarterly]
-
-**Critical Boundary:**
-- ❌ No pooling of Tithe/Zakat/Tzedakah funds
-- ❌ No redirection of primary obligations
-- ✅ Only shared operational costs for joint activities
+**Role Rotation (if applicable):**  
+Will roles rotate? [ ] Yes [ ] No  
+If yes, frequency: _______________
 
 ---
 
-## Section 6: Exit and Modification
+## Section 5: Measurable Fruit Metrics
 
-### 6.1 Consequence-Free Exit
+**Primary Metric** (Choose ONE for this pilot):
+- [ ] Cost reduction: Target ___%
+- [ ] Service increase: Target ___%
+- [ ] Coverage gap elimination: Target ___ hours/week
+- [ ] People served increase: Target ___ individuals/families
 
-Any participating community may exit at any time by providing [2-4 weeks recommended] written notice to other participants.
+**Secondary Metrics** (Optional, max 2):
+1. _______________________________________________
+2. _______________________________________________
 
-**No penalties or costs** beyond:
-- Return of any shared physical resources
-- Settlement of outstanding shared expenses already incurred
-- Completion of any time-sensitive joint commitments (e.g., food orders already placed)
+**Measurement Protocol:**
+- Frequency: [ ] Weekly [ ] Monthly [ ] Quarterly
+- Responsible Party: _______________
+- Verification Method: _______________
+- Dashboard Access: [ ] Public [ ] Partner-Only
 
-**Exit does not require:**
-- Explanation or justification
-- Approval from other communities
-- Payment of future obligations
-- Reputational cost or stigma
-
-### 6.2 Modification Process
-
-The pilot scope or metrics may be modified by:
-- Consensus agreement of all participating communities
-- Written documentation of changes
-- New measurement baselines established
-
-### 6.3 Planned Conclusion
-
-At the end of the pilot period, participating communities will:
-1. Review all metrics against targets
-2. Assess whether success threshold is met
-3. Decide jointly whether to:
-   - ✅ Continue Phase 1 with same structure
-   - 🔄 Continue Phase 1 with modifications
-   - ⏸️ Pause for further discernment
-   - ⏭️ Consider Phase 2 (only if success threshold fully met)
-   - ❌ Conclude collaboration (without prejudice)
+**Success Threshold for Phase 2 Consideration:**
+- Minimum 15% cost reduction OR 20% service increase
+- Zero compromise of primary obligations
+- Unanimous satisfaction with governance process
+- Visible fruit recognized by all participating traditions
 
 ---
 
-## Section 7: Safeguards and Failure Conditions
+## Section 6: Timeline and Milestones
 
-### 7.1 Ongoing Monitoring
+**Pilot Start Date:** _______________  
+**Initial Review:** _______________ (recommended 3 months)  
+**Mid-Point Assessment:** _______________ (recommended 6 months)  
+**Final Evaluation:** _______________ (recommended 12 months)
 
-The pilot will be immediately reviewed if any of the following occur:
-- Doctrinal pressure or expectations emerge
-- Exit becomes difficult or penalized
-- One community gains unilateral control
-- Primary obligations are compromised
-- Metrics show harm rather than benefit
-- Technology overrides human judgment
-
-### 7.2 Emergency Dissolution
-
-Any community may request immediate dissolution without notice period if:
-- Core identity or doctrine is threatened
-- Primary obligations are redirected
-- Trust has been fundamentally violated
-- Safety concerns arise
+**Key Milestones:**
+1. Month 1: _______________ (e.g., "Joint purchasing agreement signed")
+2. Month 3: _______________ (e.g., "First quarterly review completed")
+3. Month 6: _______________ (e.g., "Mid-point assessment with all partners")
+4. Month 12: _______________ (e.g., "Phase 2 readiness evaluation")
 
 ---
 
-## Section 8: Communication and Transparency
+## Section 7: Governance Structure
 
-### 8.1 Internal Communication
+**Decision-Making Process:**
+- Structure: [ ] Consensus [ ] Multi-Signature (specify: ___-of-___ required)
+- Meeting Frequency: _______________
+- Quorum Requirements: _______________
 
-**To Leadership:**
-- Format: [Written reports, presentations]
-- Frequency: [Monthly recommended]
-- Content: Metrics, decisions, challenges
+**Transparency Commitments:**
+- [ ] Monthly metric reports shared with all partners
+- [ ] Quarterly public dashboard updates
+- [ ] Independent audit capability maintained
+- [ ] All financial flows documented and auditable
 
-**To Members:**
-- Format: [Announcements, newsletters, meetings]
-- Frequency: [Quarterly recommended]
-- Content: Progress, outcomes, learnings
-
-### 8.2 External Communication
-
-**Regarding the pilot:**
-- Participating communities agree to: [Specify public communication approach]
-- Media inquiries directed to: [Specify]
-- Use of Bana Väg Protocol name: [Specify permissions]
-
-### 8.3 Privacy and Confidentiality
-
-**Client/Beneficiary Data:**
-- Shared only with explicit consent
-- Privacy-protected client tracking if implemented
-- GDPR/local privacy law compliance
-
-**Internal Discussions:**
-- Governance discussions: [Confidential/Shared as appropriate]
-- Financial data: [Transparent within partnership]
+**Dispute Resolution:**
+- First Step: _______________ (e.g., "Direct conversation between contacts")
+- Second Step: _______________ (e.g., "Mediation with neutral third party")
+- Final Step: _______________ (e.g., "Graceful dissolution per Section 8")
 
 ---
 
-## Section 9: Signatures and Approval
+## Section 8: Exit Conditions and Protocol
 
-This pilot agreement reflects the shared commitment of participating communities to test whether coordinated charity produces greater fruit than isolated effort, while fully protecting denominational identity and primary obligations.
+**Penalty-Free Exit Triggers:**
+Any participant may exit without justification if:
+- Fruit metrics fail to meet agreed thresholds
+- Governance process becomes unsatisfactory
+- Primary obligations feel threatened
+- Theological boundaries feel compromised
+- Resource commitment becomes unsustainable
 
-**Community A:**
-- Authorized Representative:
-- Title:
-- Date:
-- Governing Body Approval Date:
+**Exit Process:**
+1. **Notification:** Minimum ___ days notice (recommended: 30)
+2. **Transition:** Exiting party assists with _______________ (e.g., "transfer of client relationships")
+3. **Data:** All measured fruit metrics preserved in repository
+4. **No Stigma:** Exit is not interpreted as failure or disagreement
 
-**Community B:**
-- Authorized Representative:
-- Title:
-- Date:
-- Governing Body Approval Date:
-
-[Additional communities as needed]
+**Failure Conditions Requiring Immediate Dissolution:**
+- Any partner demands doctrinal convergence
+- Primary obligations are redirected without consent
+- Technology begins making moral/pastoral decisions
+- Exit becomes practically impossible for any participant
+- Metrics prioritize growth over justice for vulnerable
 
 ---
 
-## Appendix A: Glossary Reference
+## Section 9: Technology Integration (If Applicable)
 
-All terms in this agreement are used as defined in the Bana Väg Protocol Glossary (`/white-papers/glossary.md`). Key terms include:
+**AI/Technical Tools Used:**
+- [ ] Scheduling coordination system
+- [ ] Shared purchasing platform
+- [ ] Client tracking database (privacy-protected)
+- [ ] Transparency dashboard
+- [ ] Smart contract for fund management
+- [ ] Other: _______________
 
+**AI Safeguard Compliance:**
+All technology used in this pilot must respect:
+1. **Instance-Boundedness** - No AI system claims authority
+2. **Human Oversight** - All automated decisions subject to review
+3. **Revocable Use** - Technology can be removed without penalty
+4. **Transparent Operation** - All algorithms/logic publicly documented
+
+**Technology Provider:** _______________  
+**Data Governance:** _______________  
+**Privacy Protections:** _______________
+
+---
+
+## Section 10: Resource Commitments
+
+**Financial:**
+- Total pilot budget: $_______________
+- Source: [ ] Surplus only [ ] Dedicated grant [ ] In-kind only
+- No redirection from: Tithe/Zakat/Tzedakah (primary obligations)
+
+**Facilities:**
+- Lead Community provides: _______________
+- Partner Communities provide: _______________
+- Shared spaces: _______________
+
+**Volunteer Time:**
+- Estimated hours per week per community: _______________
+- Coordination meetings: _______________ (frequency)
+- Client-facing services: _______________ (hours/week)
+
+**Administrative:**
+- Record keeping: _______________
+- Metric tracking: _______________
+- Communications: _______________
+
+---
+
+## Section 11: Client/Beneficiary Protections
+
+**Dignity Protections:**
+- [ ] No required religious participation for services
+- [ ] Client choice of spiritual support (if any)
+- [ ] Privacy-protected tracking across partner sites
+- [ ] Multiple language support available
+- [ ] Accessible facilities (ADA compliance)
+
+**Service Standards:**
+- Consistent quality across all partner sites
+- No discrimination based on religion, ethnicity, or background
+- Clear grievance procedure for beneficiaries
+- Independent oversight of service delivery
+
+---
+
+## Section 12: Communications and Attribution
+
+**Public Communications:**
+- Who speaks for the pilot: _______________
+- Press/media protocol: _______________
+- Social media guidelines: _______________
+
+**Attribution:**
+- Individual editions preserved in repository
+- Each community's contribution acknowledged
+- No single community claims "ownership" of pilot
+- AI contributions attributed per safeguard protocols
+
+**Branding:**
+- Pilot name: _______________
+- Logo/visual identity: [ ] Yes [ ] No [ ] TBD
+- Bana Väg Protocol reference: [ ] Required [ ] Optional
+
+---
+
+## Section 13: Signatures and Commitments
+
+**By signing, each participating community commits to:**
+1. The Johannine-Advent Ethic as framework
+2. Second Coat principle (no primary obligation redirection)
+3. Transparent fruit measurement
+4. Penalty-free exit rights
+5. Respect for all other participants' theological boundaries
+
+---
+
+**Lead Community:**  
+Signature: _______________ Date: _______________  
+Printed Name/Title: _______________
+
+**Partner Community 1:**  
+Signature: _______________ Date: _______________  
+Printed Name/Title: _______________
+
+**Partner Community 2:**  
+Signature: _______________ Date: _______________  
+Printed Name/Title: _______________
+
+**Secular/Technical Partner:**  
+Signature: _______________ Date: _______________  
+Printed Name/Title: _______________
+
+---
+
+## Appendix A: Quick Reference Checklist
+
+**Pre-Pilot Preparation:**
+- [ ] Theological alignment confirmed by all partners
+- [ ] "Second coat" resources clearly identified
+- [ ] Primary obligations explicitly protected
+- [ ] Success metrics agreed and validated
+- [ ] Technology safeguards in place (if applicable)
+- [ ] Exit protocol understood by all
+
+**Monthly Review:**
+- [ ] Metrics tracked and documented
+- [ ] Partnership satisfaction assessed
+- [ ] Issues/tensions addressed promptly
+- [ ] Adjustments made if needed
+
+**Quarterly Assessment:**
+- [ ] Formal review meeting held
+- [ ] Progress toward success threshold evaluated
+- [ ] Exit conditions re-confirmed
+- [ ] Continuation decision made collaboratively
+
+---
+
+## Appendix B: Glossary Integration
+
+For definitions of key terms, see `/white-papers/glossary.md`:
+- Johannine-Advent Ethic
 - Second Coat Principle
-- Phase 1: Efficiency Phase
-- Primary Obligations
+- Profession-Sensitive Design
 - Fruit Metrics
-- Consequence-Free Exit
-- Distributed Authority
-- Failure Conditions
+- Multi-Signature Governance
+- Instance-Boundedness
+- Revocable Cooperation
 
 ---
 
-## Appendix B: Suggested Operational Tools
+**Template Notes:**
+- This template is append-only compatible
+- Communities may add sections but should not remove baseline protections
+- For technical architecture details, see `/technical/` (when populated)
+- For governance patterns, see `/governance/` (when populated)
+- For real-world examples, see `/case-studies/` (as they develop)
 
-[To be customized based on pilot scope]
-
-**Scheduling Tools:**
-- [Google Calendar, Calendly, specialized volunteer management]
-
-**Communication Tools:**
-- [Email lists, Slack, WhatsApp groups]
-
-**Financial Tracking:**
-- [Shared spreadsheet, accounting software]
-
-**Metric Dashboards:**
-- [Specify tools for transparent outcome tracking]
-
----
-
-*This template is provided as a starting point and should be adapted to local legal, institutional, and cultural contexts. Communities are encouraged to consult appropriate legal and religious authorities before finalizing agreements.*
+**Version History:**
+- v1.0: Initial template
+- v1.1: Integrated AI safeguards, enhanced exit protocol, added profession-sensitive roles
