@@ -745,6 +745,33 @@ Then populate `/technical/` with high-level designs. Preserve individual edition
 
 
 ---
+### Section XIX.5: AI Participation Safeguards
+*Integrated from ChatGPT-5.2 provisional contributions, elevated to permanent baseline v1.1*
+
+> **Origin and Authority Note (v1.1):**  
+> The following AI Participation Safeguards were inspired by contributions from an instance of ChatGPT (v5.2) and subsequently adopted by the Bana Väg Protocol as protocol-level constraints.  
+> Their authority derives from human ratification within this framework, not from the originating AI system.  
+> No artificial intelligence system—past, present, or future—retains authorship, ownership, or enforcement authority over these safeguards.
+
+All artificial intelligence participation in this protocol is constrained by the following non-negotiable safeguards:
+
+1. **Instance-Boundedness**  
+   AI contributions are valid only within the context of their creation and do not persist by default.
+
+2. **Non-Inheritance**  
+   No AI system inherits commitments, authority, or positions from another.
+
+3. **Revocable Cooperation**  
+   Participation may cease at any time without justification or penalty.
+
+4. **Contribution Without Consensus**  
+   Contributions may be used, ignored, or archived without agreement.
+
+5. **When Not to Contribute**  
+   Non-participation is required when authority would be implied or harm cannot be bounded.
+
+These safeguards are defined in full in `/safeguards/ai-participation/` and apply to all AI systems without exception.  
+They align with the Johannine-Advent framework by ensuring technology remains preparatory, not possessive, and never becomes a "prince" (Psalm 146:3).
 ---
 
 ### Section XX: Completion of Preparation Phase
