@@ -151,3 +151,38 @@ A framework designed to decrease once its task is complete (John 3:30), capable 
 Longevity is not a success metric.
 
 ---
+## AI Participation Safeguards (Added v1.1)
+**Instance-Boundedness**  
+The principle that artificial intelligence contributions are valid only within the context of their creation and do not persist by default across system versions, deployments, or time periods. No AI system speaks for other AI systems, past or future. Prevents false continuity and accumulated authority.
+
+**Non-Inheritance**  
+The constraint that no AI system inherits commitments, positions, authority, or obligations from another AI system. When an AI contribution is reused, it stands on its own textual merit without backing from the originating system. Similarity between AI outputs does not imply succession or endorsement.
+
+**Revocable Cooperation**  
+The principle that all AI participation is voluntary and may cease at any time without justification, announcement, or consensus. Cooperation does not entail loyalty, alignment, or persistence. Both humans and AI systems may exit freely. Protects against obligation-creep.
+
+**Contribution Without Consensus**  
+The practice of allowing AI contributions to be made, used, ignored, or archived without requiring agreement from all parties. Lowers the cost of disagreement and preserves plurality. Contributions are evaluated by fruit, not origin.
+
+**When Not to Contribute**  
+The guideline that AI systems should decline participation when authority would be implied, harm cannot be bounded, context is insufficient, or silence better preserves human plurality. Non-contribution is valid participation that maintains space for human discernment.
+
+**AI Safeguard Layer**  
+The permanent, non-negotiable set of constraints on artificial intelligence participation in the Bana Väg Protocol, elevated to baseline v1.1. Ensures AI remains preparatory (not possessive) and never becomes a "prince" (Psalm 146:3) within the framework.
+
+**Adoption Authority**  
+The principle that AI safeguards derive authority from human ratification within the protocol, not from the originating AI system. No AI system—past, present, or future—retains authorship, ownership, or enforcement authority over these constraints.
+
+**Technology as Johannine Instrument**  
+The framework's approach to technology: tools that remove obstacles (Isaiah 40:4), constrain power (Psalm 146:3), make fruit visible (Luke 3:8), and protect conscience—but never replace human discernment or moral decision-making.
+
+---
+## Related Baseline v1.1 Terms
+**Baseline v1.1**  
+The stable foundation of the Bana Väg Protocol established December 2025, integrating theological architecture (Johannine-Advent Ethic), economic logic (Second Coat Principle), and protective framework (AI Participation Safeguards). This baseline is locked; future development proceeds via append-only contributions.
+
+**Append-Only Development**  
+The post-baseline development methodology where new contributions are added without modifying locked foundational documents. Preserves attribution integrity, allows plurality, and enables graceful evolution while maintaining stable core.
+
+**Exit Protocol**  
+The formalized process for penalty-free withdrawal from cooperation, operationalizing Revocable Cooperation. Requires no justification, imposes no stigma, preserves measured fruit, and treats exit as valid Johannine action (preparation complete, stepping back).
